@@ -15,14 +15,14 @@ pipeline {
             }
         }
 
-        stage('Run Container') {
+        stage('Deploy Application') {
             steps {
                 sh 'docker rm -f novapay-ci || true'
                 sh 'docker run -d --name novapay-ci -p 8081:80 novapay-app:1.0'
             }
         }
 
-        stage('Application Test') {
+        stage('Application Health Check') {
             steps {
                 sh 'curl -f http://localhost:8081'
             }
@@ -30,16 +30,12 @@ pipeline {
     }
 
     post {
-        always {
-            sh 'docker rm -f novapay-ci || true'
-        }
-
         success {
-            echo 'NovaPay CI Pipeline SUCCESS!'
+            echo 'NovaPay CD Deployment SUCCESS!'
         }
 
         failure {
-            echo 'NovaPay CI Pipeline FAILED!'
+            echo 'NovaPay CD Deployment FAILED!'
         }
     }
 }
