@@ -5,7 +5,7 @@ pipeline {
         AWS_REGION = 'ap-south-1'
         ECR_REGISTRY = '570064633022.dkr.ecr.ap-south-1.amazonaws.com'
         ECR_REPOSITORY = 'novapay-app'
-        IMAGE_TAG = '1.0'
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
