@@ -19,6 +19,8 @@ pipeline {
             steps {
                 sh 'docker build -t novapay-app:${IMAGE_TAG} ./app'
                 sh 'docker tag novapay-app:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}'
+                sh 'docker tag novapay-app:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest'
+                sh 'docker tag novapay-app:${IMAGE_TAG} novapay-app:latest'
             }
         }
 
@@ -34,6 +36,7 @@ pipeline {
         stage('Push Image to Amazon ECR') {
             steps {
                 sh 'docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}'
+                sh 'docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest'
             }
         }
 
