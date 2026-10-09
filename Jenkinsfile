@@ -1,8 +1,14 @@
 pipeline {
     agent any
 
-    stages {
+    environment {
+        AWS_REGION = 'ap-south-1'
+        ECR_REGISTRY = '570064633022.dkr.ecr.ap-south-1.amazonaws.com'
+        ECR_REPOSITORY = 'novapay-app'
+        IMAGE_TAG = '1.0'
+    }
 
+    stages {
         stage('Checkout') {
             steps {
                 checkout scm
@@ -11,14 +17,30 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t novapay-app:1.0 ./app'
+                sh 'docker build -t novapay-app:${IMAGE_TAG} ./app'
+                sh 'docker tag novapay-app:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}'
+            }
+        }
+
+        stage('Login to Amazon ECR') {
+            steps {
+                sh '''
+                    aws ecr get-login-password --region "$AWS_REGION" |
+                    docker login --username AWS --password-stdin "$ECR_REGISTRY"
+                '''
+            }
+        }
+
+        stage('Push Image to Amazon ECR') {
+            steps {
+                sh 'docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}'
             }
         }
 
         stage('Deploy Application') {
             steps {
                 sh 'docker rm -f novapay-ci || true'
-                sh 'docker run -d --name novapay-ci -p 8081:80 novapay-app:1.0'
+                sh 'docker run -d --name novapay-ci -p 8081:80 novapay-app:${IMAGE_TAG}'
             }
         }
 
@@ -31,11 +53,11 @@ pipeline {
 
     post {
         success {
-            echo 'NovaPay CD Deployment SUCCESS!'
+            echo 'NovaPay CI/CD with Amazon ECR SUCCESS!'
         }
 
         failure {
-            echo 'NovaPay CD Deployment FAILED!'
+            echo 'NovaPay CI/CD FAILED!'
         }
     }
 }
