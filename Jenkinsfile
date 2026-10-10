@@ -87,7 +87,11 @@ pipeline {
             steps {
                 sh '''
                     set -e
-                    docker rm -f "$TARGET_NAME" >/dev/null 2>&1 || true
+                    if docker container inspect "$TARGET_NAME" >/dev/null 2>&1; then
+                        docker rm -f "$TARGET_NAME"
+                    else
+                        echo "Container $TARGET_NAME does not exist; creating it"
+                    fi
 
                     if [ "$TARGET_PORT" = "8081" ]; then
                         docker rm -f novapay-ci >/dev/null 2>&1 || true
