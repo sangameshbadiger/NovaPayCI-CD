@@ -25,6 +25,19 @@ pipeline {
             }
         }
 
+        stage('Trivy Security Scan') {
+            steps {
+                sh '''
+                    set -e
+                    /usr/local/bin/trivy image \
+                      --severity HIGH,CRITICAL \
+                      --exit-code 1 \
+                      --format table \
+                      "novapay-app:${IMAGE_TAG}"
+                '''
+            }
+        }
+
         stage('Login to Amazon ECR') {
             steps {
                 sh '''
@@ -137,6 +150,7 @@ pipeline {
         }
         failure {
             echo 'NovaPay deployment FAILED. Check stage logs.'
+            echo 'If traffic was switched, inspect the active Nginx slot and application health.'
         }
     }
 }
