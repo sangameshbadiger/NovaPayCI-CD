@@ -17,16 +17,18 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t novapay-app:${IMAGE_TAG} ./app'
-                sh 'docker tag novapay-app:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}'
-                sh 'docker tag novapay-app:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest'
-                sh 'docker tag novapay-app:${IMAGE_TAG} novapay-app:latest'
+                sh '''
+                    set -e
+                    docker build -t novapay-app:${IMAGE_TAG} ./app
+                    docker tag novapay-app:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+                '''
             }
         }
 
         stage('Login to Amazon ECR') {
             steps {
                 sh '''
+                    set -e
                     aws ecr get-login-password --region "$AWS_REGION" |
                     docker login --username AWS --password-stdin "$ECR_REGISTRY"
                 '''
@@ -36,31 +38,105 @@ pipeline {
         stage('Push Image to Amazon ECR') {
             steps {
                 sh 'docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}'
-                sh 'docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest'
             }
         }
 
-        stage('Deploy Application') {
+        stage('Select Inactive Slot') {
             steps {
-                sh 'docker rm -f novapay-ci || true'
-                sh 'docker run -d --name novapay-ci -p 8081:80 novapay-app:${IMAGE_TAG}'
+                script {
+                    def active = sh(
+                        script: "grep -oE '127\\.0\\.0\\.1:(8081|8082)' /etc/nginx/conf.d/novapay.conf | head -1 | cut -d: -f2",
+                        returnStdout: true
+                    ).trim()
+
+                    if (active == '8081') {
+                        env.PREVIOUS_PORT = '8081'
+                        env.TARGET_PORT = '8082'
+                        env.TARGET_NAME = 'novapay-green'
+                        env.TARGET_SLOT = 'green'
+                        env.PREVIOUS_SLOT = 'blue'
+                    } else if (active == '8082') {
+                        env.PREVIOUS_PORT = '8082'
+                        env.TARGET_PORT = '8081'
+                        env.TARGET_NAME = 'novapay-blue'
+                        env.TARGET_SLOT = 'blue'
+                        env.PREVIOUS_SLOT = 'green'
+                    } else {
+                        error('Cannot determine active Nginx slot. Deployment stopped.')
+                    }
+
+                    echo "Active port: ${env.PREVIOUS_PORT}; deploying to inactive port: ${env.TARGET_PORT}"
+                }
             }
         }
 
-        stage('Application Health Check') {
+        stage('Deploy to Inactive Slot') {
             steps {
-                sh 'curl -f http://localhost:8081'
+                sh '''
+                    set -e
+                    docker rm -f "$TARGET_NAME" >/dev/null 2>&1 || true
+
+                    if [ "$TARGET_PORT" = "8081" ]; then
+                        docker rm -f novapay-ci >/dev/null 2>&1 || true
+                    fi
+
+                    docker run -d --name "$TARGET_NAME" \
+                      --restart unless-stopped \
+                      -p "${TARGET_PORT}:80" \
+                      "novapay-app:${IMAGE_TAG}"
+                '''
+            }
+        }
+
+        stage('Target Health Check') {
+            steps {
+                sh '''
+                    set -e
+                    for attempt in $(seq 1 15); do
+                        if curl -fsS "http://127.0.0.1:${TARGET_PORT}/" |
+                           grep -q "Application Version"; then
+                            echo "Target application is healthy on port ${TARGET_PORT}"
+                            exit 0
+                        fi
+                        sleep 2
+                    done
+                    echo "Target health check failed"
+                    exit 1
+                '''
+            }
+        }
+
+        stage('Switch Traffic') {
+            steps {
+                sh 'sudo -n /usr/local/bin/novapay-switch "$TARGET_SLOT"'
+            }
+        }
+
+        stage('Verify Live Application') {
+            steps {
+                script {
+                    try {
+                        sh '''
+                            set -e
+                            curl -fsS http://127.0.0.1/ |
+                              grep -q "Application Version"
+                        '''
+                    } catch (Exception err) {
+                        echo 'Live verification failed; attempting rollback.'
+                        sh 'sudo -n /usr/local/bin/novapay-switch "$PREVIOUS_SLOT"'
+                        error('Deployment verification failed; rollback attempted.')
+                    }
+                }
             }
         }
     }
 
     post {
         success {
-            echo 'NovaPay CI/CD with Amazon ECR SUCCESS!'
+            echo 'NovaPay Blue-Green deployment SUCCESS!'
         }
-
         failure {
-            echo 'NovaPay CI/CD FAILED!'
+            echo 'NovaPay deployment FAILED. Check stage logs.'
         }
     }
 }
