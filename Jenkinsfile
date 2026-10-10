@@ -129,11 +129,23 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh '''
+                        sh """
                             set -e
-                            curl -fsS http://127.0.0.1/ |
-                              grep -q "Application Version"
-                        '''
+                            for attempt in $(seq 1 10); do
+                                if curl --fail --silent --show-error \\
+                                    --max-time 3 http://127.0.0.1/ \\
+                                    -o /tmp/novapay-live-response.html &&
+                                   grep -q "Application Version" \\
+                                    /tmp/novapay-live-response.html; then
+                                    echo "Live application health check passed"
+                                    exit 0
+                                fi
+                                echo "Health check attempt \${attempt} failed"
+                                sleep 2
+                            done
+                            echo "Live application health check failed"
+                            exit 1
+                        """
                     } catch (Exception err) {
                         echo 'Live verification failed; attempting rollback.'
                         sh 'sudo -n /usr/local/bin/novapay-switch "$PREVIOUS_SLOT"'
