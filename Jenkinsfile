@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(name: 'TEST_ROLLBACK', defaultValue: false, description: 'Test rollback by forcing live verification to fail after traffic switch')
+    }
+
     environment {
         AWS_REGION = 'ap-south-1'
         ECR_REGISTRY = '570064633022.dkr.ecr.ap-south-1.amazonaws.com'
@@ -156,6 +160,10 @@ pipeline {
                     try {
                         sh """
                             set -e
+                            if [ "\$TEST_ROLLBACK" = "true" ]; then
+                                echo "TEST MODE: Forcing live verification failure to exercise rollback"
+                                exit 1
+                            fi
                             for attempt in \$(seq 1 10); do
                                 if curl --fail --silent --show-error \\
                                     --max-time 3 http://127.0.0.1/ \\
