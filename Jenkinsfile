@@ -131,7 +131,7 @@ pipeline {
                     try {
                         sh """
                             set -e
-                            for attempt in $(seq 1 10); do
+                            for attempt in \$(seq 1 10); do
                                 if curl --fail --silent --show-error \\
                                     --max-time 3 http://127.0.0.1/ \\
                                     -o /tmp/novapay-live-response.html &&
