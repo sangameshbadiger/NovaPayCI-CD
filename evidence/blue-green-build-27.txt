@@ -1,0 +1,18 @@
+NovaPay Blue-Green Deployment Verification
+Sat Oct 10 14:42:11 UTC 2026
+
+Active Nginx upstream:
+2:    server 127.0.0.1:8082;
+
+Production HTTP status:
+HTTP 200
+
+Application content:
+    <title>NovaPay Digital Bank</title>
+    <h1>Welcome to NovaPay Digital Bank</h1>
+    <p>Application Version: 1.2</p>
+
+Docker containers:
+NAMES           IMAGE            STATUS          PORTS
+novapay-green   novapay-app:27   Up 3 minutes    0.0.0.0:8082->80/tcp, :::8082->80/tcp
+novapay-blue    novapay-app:25   Up 45 minutes   0.0.0.0:8081->80/tcp, :::8081->80/tcp
