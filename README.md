@@ -108,5 +108,6 @@ The Jenkins pipeline completed successfully, the Docker image was pushed to Amaz
 
 \- Verified application availability using a health check
 
+Automatic Jenkins Poll SCM Trigger Test
 
-
+test: verify automatic Jenkins trigger
