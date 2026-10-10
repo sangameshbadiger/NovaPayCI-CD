@@ -148,8 +148,16 @@ pipeline {
                         """
                     } catch (Exception err) {
                         echo 'Live verification failed; attempting rollback.'
-                        sh 'sudo -n /usr/local/bin/novapay-switch "$PREVIOUS_SLOT"'
-                        error('Deployment verification failed; rollback attempted.')
+
+                        try {
+                            sh(
+                                script: 'set -eu; sudo -n /usr/local/bin/novapay-switch "$PREVIOUS_SLOT"; for attempt in $(seq 1 10); do if curl --fail --silent --show-error --max-time 3 http://127.0.0.1/ -o /tmp/novapay-rollback-response.html && grep -q "Application Version" /tmp/novapay-rollback-response.html; then echo "Rollback verification passed"; exit 0; fi; echo "Rollback health check attempt $attempt failed"; sleep 2; done; echo "ERROR: Rollback verification failed"; exit 1'
+                            )
+                        } catch (Exception rollbackErr) {
+                            error('CRITICAL: Deployment verification and rollback verification both failed. Manual intervention required.')
+                        }
+
+                        error('Deployment verification failed; rollback completed and verified.')
                     }
                 }
             }
