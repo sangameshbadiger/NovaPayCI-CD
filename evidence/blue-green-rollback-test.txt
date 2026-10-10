@@ -1,0 +1,14 @@
+NovaPay Blue-Green Rollback Test
+Sat Oct 10 13:35:56 UTC 2026
+
+Active Nginx upstream:
+2:    server 127.0.0.1:8082;
+
+Production response:
+HTTP status: 200
+    <p>Application Version: 1.2</p>
+
+Running application containers:
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+8cc688a5b1e6   novapay-app:22   "/docker-entrypoint.…"   3 minutes ago    Up 3 minutes    0.0.0.0:8082->80/tcp, :::8082->80/tcp   novapay-green
+dc4c94d637a9   novapay-app:18   "/docker-entrypoint.…"   25 minutes ago   Up 25 minutes   0.0.0.0:8081->80/tcp, :::8081->80/tcp   novapay-blue
