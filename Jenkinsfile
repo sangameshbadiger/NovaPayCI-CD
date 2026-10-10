@@ -119,6 +119,27 @@ pipeline {
             }
         }
 
+        stage('Integration Tests') {
+            steps {
+                sh '''
+                    set -eu
+                    BASE_URL="http://127.0.0.1:${TARGET_PORT}"
+                    RESPONSE="/tmp/novapay-integration-response.html"
+
+                    STATUS=$(curl --silent --show-error \
+                        --output "$RESPONSE" \
+                        --write-out "%{http_code}" \
+                        --max-time 5 "$BASE_URL/")
+
+                    test "$STATUS" = "200"
+                    grep -q "NovaPay Digital Bank" "$RESPONSE"
+                    grep -q "Application Version" "$RESPONSE"
+
+                    echo "PASS: Integration tests passed on ${TARGET_PORT}"
+                '''
+            }
+        }
+
         stage('Switch Traffic') {
             steps {
                 sh 'sudo -n /usr/local/bin/novapay-switch "$TARGET_SLOT"'
