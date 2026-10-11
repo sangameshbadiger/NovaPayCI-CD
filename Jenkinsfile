@@ -55,6 +55,21 @@ pipeline {
             }
         }
 
+        stage('Generate CycloneDX SBOM') {
+            steps {
+                sh '''
+                    set -e
+                    mkdir -p evidence/test-results/sbom
+                    /usr/local/bin/trivy image \
+                      --format cyclonedx \
+                      --output evidence/test-results/sbom/novapay-sbom.cdx.json \
+                      "novapay-app:${IMAGE_TAG}"
+                    python3 -m json.tool evidence/test-results/sbom/novapay-sbom.cdx.json > /dev/null
+                    echo "CycloneDX SBOM generated and validated."
+                '''
+            }
+        }
+
         stage('Login to Amazon ECR') {
             steps {
                 sh '''
