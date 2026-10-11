@@ -70,6 +70,22 @@ pipeline {
             }
         }
 
+        stage('License Compliance Scan') {
+            steps {
+                sh '''
+                    set -e
+                    mkdir -p evidence/test-results/licenses
+                    /usr/local/bin/trivy image \
+                      --scanners license \
+                      --format json \
+                      --output evidence/test-results/licenses/license-scan.json \
+                      "novapay-app:${IMAGE_TAG}"
+                    python3 -m json.tool evidence/test-results/licenses/license-scan.json > /dev/null
+                    echo "License scan report generated and validated."
+                '''
+            }
+        }
+
         stage('Login to Amazon ECR') {
             steps {
                 sh '''
