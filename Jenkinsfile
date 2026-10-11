@@ -252,6 +252,10 @@ pipeline {
     }
 
     post {
+        always {
+            archiveArtifacts artifacts: 'evidence/test-results/sbom/*.cdx.json',
+                             allowEmptyArchive: true
+        }
         success {
             echo 'NovaPay Blue-Green deployment SUCCESS!'
         }
