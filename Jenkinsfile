@@ -269,7 +269,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'evidence/test-results/sbom/*.cdx.json',
+            archiveArtifacts artifacts: 'evidence/test-results/sbom/*.cdx.json,evidence/test-results/licenses/*.json',
                              allowEmptyArchive: true
         }
         success {
