@@ -154,6 +154,7 @@ pipeline {
                       zap-baseline.py \
                       -t "http://127.0.0.1:${TARGET_PORT}/" \
                       -m 2 \
+                      -I \
                       -J zap-report.json \
                       -r zap-report.html
                 '''
