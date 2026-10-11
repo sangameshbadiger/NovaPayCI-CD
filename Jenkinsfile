@@ -140,6 +140,29 @@ pipeline {
             }
         }
 
+        stage('DAST - OWASP ZAP') {
+            steps {
+                sh '''
+                    set -eu
+                    mkdir -p "$WORKSPACE/evidence/test-results/zap"
+
+                    docker run --rm --network host \
+                      -v "$WORKSPACE/evidence/test-results/zap:/zap/wrk:rw" \
+                      ghcr.io/zaproxy/zaproxy:stable \
+                      zap-baseline.py \
+                      -t "http://127.0.0.1:${TARGET_PORT}/" \
+                      -m 2 \
+                      -J zap-report.json \
+                      -r zap-report.html
+                '''
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'evidence/test-results/zap/*', allowEmptyArchive: true
+                }
+            }
+        }
+
         stage('Integration Tests') {
             steps {
                 sh '''
