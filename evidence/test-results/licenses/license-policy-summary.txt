@@ -1,0 +1,36 @@
+Policy version: 1.0
+Report: evidence/test-results/licenses/license-scan.json
+Total license findings: 106
+
+Categories:
+  notice: 48
+  reciprocal: 2
+  restricted: 25
+  unencumbered: 1
+  unknown: 30
+
+Required actions:
+  ALLOW_AFTER_VERIFICATION: 1
+  BLOCK_UNLESS_APPROVED: 25
+  NOTICE_TRACKING_REQUIRED: 48
+  REVIEW_REQUIRED: 32
+
+Sample findings requiring review or verification:
+  [BLOCK_UNLESS_APPROVED] alpine-baselayout | GPL-2.0-only | restricted | HIGH
+  [BLOCK_UNLESS_APPROVED] alpine-baselayout-data | GPL-2.0-only | restricted | HIGH
+  [REVIEW_REQUIRED] aom-libs | custom | unknown | UNKNOWN
+  [BLOCK_UNLESS_APPROVED] apk-tools | GPL-2.0-only | restricted | HIGH
+  [BLOCK_UNLESS_APPROVED] busybox | GPL-2.0-only | restricted | HIGH
+  [BLOCK_UNLESS_APPROVED] busybox-binsh | GPL-2.0-only | restricted | HIGH
+  [REVIEW_REQUIRED] ca-certificates | MPL-2.0 | reciprocal | MEDIUM
+  [REVIEW_REQUIRED] ca-certificates-bundle | MPL-2.0 | reciprocal | MEDIUM
+  [REVIEW_REQUIRED] curl | curl | unknown | UNKNOWN
+  [BLOCK_UNLESS_APPROVED] freetype | GPL-2.0-or-later | restricted | HIGH
+  [BLOCK_UNLESS_APPROVED] geoip | LGPL-2.1-or-later | restricted | HIGH
+  [BLOCK_UNLESS_APPROVED] gettext-envsubst | GPL-3.0-or-later | restricted | HIGH
+  [BLOCK_UNLESS_APPROVED] gettext-envsubst | LGPL-2.1-or-later | restricted | HIGH
+  [BLOCK_UNLESS_APPROVED] libapk | GPL-2.0-only | restricted | HIGH
+  [REVIEW_REQUIRED] libbz2 | bzip-2-1.0.6 | unknown | UNKNOWN
+
+AUDIT NOTE: This is a policy evaluation summary, not a legal determination.
+No release-blocking decision has been made; approved exceptions are not yet implemented.

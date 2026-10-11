@@ -85,3 +85,35 @@ to fail when HIGH or CRITICAL findings are reported.
 This result applies to that image and scan only; it is not proof that every
 dependency, application layer, infrastructure component, or regulatory
 requirement is compliant.
+
+## License Compliance Gate — Trivy
+
+**Status:** Implemented for reporting; release enforcement and exception validation are pending.
+
+### Policy
+- Policy file: `policies/licenses/license-policy.json`
+- Checker: `policies/licenses/check_license_policy.py`
+- Source report: `evidence/test-results/licenses/license-scan.json`
+- Evaluation evidence: `evidence/test-results/licenses/license-policy-summary.txt`
+
+### Latest recorded evaluation
+- Total license findings: 106
+- Restricted: 25 — approval required before release
+- Unknown: 30 — manual review required
+- Reciprocal: 2 — review required
+- Notice: 48 — notice tracking required
+- Unencumbered: 1 — verification required
+
+### Thresholds and remediation
+- Restricted licenses: review the license terms and obtain documented approval before release.
+- Unknown licenses: identify the applicable license and obtain a compliance review.
+- Reciprocal licenses: review obligations against the intended distribution and deployment model.
+- Notice licenses: verify required attribution and notices are retained.
+- Unencumbered licenses: verify the classification before allowing use.
+
+### Exceptions and audit trail
+The policy requires documented approval, a reason, and an expiry for exceptions. The current checker does not yet validate exception records or enforce release blocking. Until that functionality is implemented and tested, this control is report-only and must not be described as an enforced release gate.
+
+Retain the source report, policy version, evaluation summary, repository commit, image/build identifier, reviewer, decision, and any approved exception records as audit evidence.
+
+**Caution:** Trivy classifications are screening results, not legal determinations. Findings must be reviewed before deciding whether a dependency is prohibited or acceptable.

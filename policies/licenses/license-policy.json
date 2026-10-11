@@ -1,0 +1,18 @@
+{
+  "policy_version": "1.0",
+  "description": "NovaPay license compliance policy",
+  "rules": {
+    "restricted": "BLOCK_UNLESS_APPROVED",
+    "unknown": "REVIEW_REQUIRED",
+    "reciprocal": "REVIEW_REQUIRED",
+    "notice": "NOTICE_TRACKING_REQUIRED",
+    "unencumbered": "ALLOW_AFTER_VERIFICATION"
+  },
+  "exceptions": {
+    "require_documented_approval": true,
+    "require_reason": true,
+    "require_expiry": true,
+    "expired_exception_allows_release": false
+  },
+  "default_action": "REVIEW_REQUIRED"
+}
