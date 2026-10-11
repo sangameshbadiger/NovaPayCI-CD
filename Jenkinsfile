@@ -147,6 +147,7 @@ pipeline {
                     mkdir -p "$WORKSPACE/evidence/test-results/zap"
 
                     docker run --rm --network host \
+                      --user 0:0 \
                       -e HOME=/tmp \
                       -v "$WORKSPACE/evidence/test-results/zap:/zap/wrk:rw" \
                       ghcr.io/zaproxy/zaproxy:stable \
