@@ -19,6 +19,19 @@ pipeline {
             }
         }
 
+        stage('SAST - Semgrep') {
+            steps {
+                sh '''
+                    set -e
+                    docker run --rm \
+                      -v "$WORKSPACE:/src:ro" \
+                      semgrep/semgrep \
+                      semgrep scan --config auto /src/app
+                '''
+            }
+        }
+
+
         stage('Build Docker Image') {
             steps {
                 sh '''
