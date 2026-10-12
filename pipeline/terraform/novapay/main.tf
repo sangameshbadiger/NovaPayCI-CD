@@ -63,7 +63,7 @@ resource "aws_security_group" "novapay_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["103.186.41.37/32"]
   }
 
   ingress {
@@ -75,6 +75,7 @@ resource "aws_security_group" "novapay_sg" {
   }
 
   egress {
+    description = "Outbound traffic for application operations"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -104,12 +105,24 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "novapay_ec2" {
+  ebs_optimized               = true
+  monitoring                  = true
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
   key_name                    = "RSA"
+  iam_instance_profile        = "NovaPayEC2ECRRole"
   subnet_id                   = aws_subnet.novapay_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.novapay_sg.id]
   associate_public_ip_address = true
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+
+  root_block_device {
+    encrypted = true
+  }
 
   user_data = file("${path.module}/user_data.sh")
 
@@ -117,6 +130,34 @@ resource "aws_instance" "novapay_ec2" {
 
   tags = {
     Name        = "novapay-ec2"
+    Project     = "NovaPay"
+    Environment = "dev"
+  }
+}
+resource "aws_default_security_group" "novapay_default_sg" {
+  vpc_id = aws_vpc.novapay_vpc.id
+
+  ingress = []
+  egress  = []
+
+  tags = {
+    Name        = "novapay-default-sg-restricted"
+    Project     = "NovaPay"
+    Environment = "dev"
+  }
+}
+
+resource "aws_flow_log" "novapay_vpc_flow_logs" {
+  vpc_id               = aws_vpc.novapay_vpc.id
+  traffic_type         = "ALL"
+  log_destination_type = "cloud-watch-logs"
+  log_destination      = "arn:aws:logs:ap-south-1:570064633022:log-group:/novapay/vpc-flow-logs"
+  iam_role_arn         = "arn:aws:iam::570064633022:role/service-role/NovaPayVPCFlowLogsRole"
+
+  max_aggregation_interval = 600
+
+  tags = {
+    Name        = "novapay-vpc-flow-logs"
     Project     = "NovaPay"
     Environment = "dev"
   }
