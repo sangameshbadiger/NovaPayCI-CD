@@ -8,3 +8,4 @@ crash.*.log
 
 __pycache__/
 *.py[cod]
+pipeline/terraform/novapay/main.tf.backup
