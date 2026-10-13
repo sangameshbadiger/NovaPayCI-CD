@@ -70,7 +70,7 @@ pipeline {
             }
         }
 
-        stage('License Compliance Scan') {
+        stage('License Compliance Scan') /* license-policy-enforcement-v1 */ {
             steps {
                 sh '''
                     set -e
@@ -81,6 +81,9 @@ pipeline {
                       --output evidence/test-results/licenses/license-scan.json \
                       "novapay-app:${IMAGE_TAG}"
                     python3 -m json.tool evidence/test-results/licenses/license-scan.json > /dev/null
+                    python3 -m unittest discover -s policies/licenses/tests -v
+                    python3 policies/licenses/check_license_policy.py --enforce
+                    echo "License policy enforced."
                     echo "License scan report generated and validated."
                 '''
             }
