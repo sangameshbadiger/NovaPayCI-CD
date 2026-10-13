@@ -201,6 +201,8 @@ pipeline {
             steps {
                 sh '''
                     set -eu
+                    echo "Running Expand-Migrate-Contract migration tests"
+                    python3 -m unittest discover -s database/tests -p 'test_*.py' -v
                     BASE_URL="http://127.0.0.1:${TARGET_PORT}"
                     RESPONSE="/tmp/novapay-integration-response.html"
 
