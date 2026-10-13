@@ -9,7 +9,7 @@ BASE = Path(__file__).resolve().parents[2]
 POLICY_PATH = BASE / "policies/licenses/license-policy.json"
 APPROVAL_PATH = BASE / "policies/licenses/approved-exceptions.json"
 DEFAULT_REPORT = BASE / "evidence/test-results/licenses/license-scan.json"
-
+NOTICE_TRACKING_PATH = BASE / "policies/licenses/notice-tracking.json"
 
 def load_json(path):
     try:
@@ -52,7 +52,37 @@ def valid_approval(item, approvals, today):
             return True
 
     return False
+def valid_notice_tracking(finding, entries):
+    """Require a matching verified notice record with an existing evidence file."""
+    matches = [
+        entry for entry in entries
+        if isinstance(entry, dict)
+        and entry.get("package") == finding.get("package")
+        and entry.get("version") == finding.get("version")
+        and entry.get("license") == finding.get("license")
+    ]
 
+    if len(matches) != 1:
+        return False
+
+    entry = matches[0]
+    if entry.get("status") != "VERIFIED":
+        return False
+
+    evidence = entry.get("evidence")
+    if not isinstance(evidence, str) or not evidence.strip():
+        return False
+
+    evidence_path = Path(evidence)
+    if not evidence_path.is_absolute():
+        evidence_path = BASE / evidence_path
+
+    try:
+        evidence_path.resolve().relative_to(BASE.resolve())
+    except ValueError:
+        return False
+
+    return evidence_path.is_file()
 
 def main():
     args = [arg for arg in sys.argv[1:] if arg != "--enforce"]
@@ -62,6 +92,7 @@ def main():
         policy = load_json(POLICY_PATH)
         report = load_json(report_path)
         register = load_json(APPROVAL_PATH)
+        tracking = load_json(NOTICE_TRACKING_PATH)
     except ValueError as exc:
         print(f"ERROR: {exc}")
         return 2
@@ -73,6 +104,14 @@ def main():
         return 2
 
     approvals = register["exceptions"]
+    if (
+        not isinstance(tracking, dict)
+        or not isinstance(tracking.get("entries"), list)
+    ):
+        print("ERROR: Invalid notice tracking schema.")
+        return 2
+
+    notice_entries = tracking["entries"]
     rules = policy.get("rules", {})
     today = date.today()
     categories = Counter()
@@ -91,7 +130,8 @@ def main():
 
             categories[category] += 1
 
-            # Correlate Trivy license findings to package metadata for version.
+            # Trivy may place OS package metadata and license findings
+            # in separate Results entries. Match across all Results.
             versions = {
                 pkg.get("Version")
                 for package_result in report.get("Results", [])
@@ -100,7 +140,6 @@ def main():
                 and license_name in (pkg.get("Licenses") or [])
                 and pkg.get("Version")
             }
-            # Also accept normalized exact license metadata from package records.
             version = next(iter(versions)) if len(versions) == 1 else None
             finding = {
                 "package": package,
@@ -117,12 +156,26 @@ def main():
                     actions[action] += 1
                 else:
                     actions["APPROVED_EXCEPTION"] += 1
+
             elif action == "ALLOW_AFTER_VERIFICATION":
                 # Do not silently treat unverified packages as approved.
                 unresolved.append(finding)
                 actions["ALLOW_AFTER_VERIFICATION"] += 1
+            elif action == "NOTICE_TRACKING_REQUIRED":
+                artifact = report.get("ArtifactName")
+                tracking_artifact = tracking.get("report")
+
+                if not artifact or tracking_artifact != artifact:
+                    unresolved.append(finding)
+                    actions[action] += 1
+                elif not valid_notice_tracking(finding, notice_entries):
+                    unresolved.append(finding)
+                    actions[action] += 1
+                else:
+                    actions[action] += 1
             else:
                 actions[action] += 1
+
 
     print(f"Policy version: {policy.get('policy_version', 'unspecified')}")
     print(f"Report: {report_path}")

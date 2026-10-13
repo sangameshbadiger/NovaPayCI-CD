@@ -1,0 +1,342 @@
+{
+  "report": "novapay-app:84",
+  "purpose": "NOTICE evidence tracking; not an approval register",
+  "entries": [
+    {
+      "package": "alpine-keys",
+      "version": "2.6-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "alpine-release",
+      "version": "3.24.2-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "aom-libs",
+      "version": "3.14.1-r0",
+      "license": "BSD-2-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "brotli-libs",
+      "version": "1.2.0-r1",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "c-ares",
+      "version": "1.34.8-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "ca-certificates-bundle",
+      "version": "20260909-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "ca-certificates",
+      "version": "20260909-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "fontconfig",
+      "version": "2.17.1-r1",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "freetype",
+      "version": "2.14.3-r0",
+      "license": "FTL",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "gettext-envsubst",
+      "version": "1.0-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libavif",
+      "version": "1.4.1-r0",
+      "license": "BSD-2-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libbsd",
+      "version": "0.12.2-r0",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libcrypto3",
+      "version": "3.5.9-r0",
+      "license": "Apache-2.0",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libdav1d",
+      "version": "1.5.3-r0",
+      "license": "BSD-2-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libedit",
+      "version": "20260508.3.1-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libexpat",
+      "version": "2.8.5-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "3.1.3-r0",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "3.1.3-r0",
+      "license": "Zlib",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libmd",
+      "version": "1.2.0-r0",
+      "license": "BSD-2-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libmd",
+      "version": "1.2.0-r0",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libmd",
+      "version": "1.2.0-r0",
+      "license": "ISC",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libpng",
+      "version": "1.6.59-r0",
+      "license": "Libpng",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libpsl",
+      "version": "0.21.5-r3",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libsharpyuv",
+      "version": "1.6.0-r0",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libsm",
+      "version": "1.2.6-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libssl3",
+      "version": "3.5.9-r0",
+      "license": "Apache-2.0",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libuuid",
+      "version": "2.42.3-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libwebp",
+      "version": "1.6.0-r0",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libxau",
+      "version": "1.0.12-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libxcb",
+      "version": "1.17.0-r2",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libxdmcp",
+      "version": "1.1.5-r1",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libxext",
+      "version": "1.3.7-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libxml2",
+      "version": "2.13.9-r2",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libxt",
+      "version": "1.3.1-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "libyuv",
+      "version": "0.0.1928-r0",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "musl-utils",
+      "version": "1.2.6-r2",
+      "license": "BSD-2-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "musl-utils",
+      "version": "1.2.6-r2",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "musl",
+      "version": "1.2.6-r2",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "nghttp2-libs",
+      "version": "1.70.0-r0",
+      "license": "MIT",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "nginx-module-acme",
+      "version": "1.30.5.0.4.1-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "nginx-module-geoip",
+      "version": "1.30.5-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "nginx-module-image-filter",
+      "version": "1.30.5-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "nginx-module-njs",
+      "version": "1.30.5.1.0.1-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "nginx-module-xslt",
+      "version": "1.30.5-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "nginx",
+      "version": "1.30.5-r1",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "pcre2",
+      "version": "10.49-r0",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "zlib",
+      "version": "1.3.2-r1",
+      "license": "Zlib",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    },
+    {
+      "package": "zstd-libs",
+      "version": "1.5.7-r2",
+      "license": "BSD-3-Clause",
+      "evidence": null,
+      "status": "PENDING_REVIEW"
+    }
+  ]
+}

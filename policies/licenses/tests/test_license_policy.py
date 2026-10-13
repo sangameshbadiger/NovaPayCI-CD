@@ -36,6 +36,7 @@ class LicensePolicyTests(unittest.TestCase):
 
     def report(self, category="restricted", version="1.2.3"):
         return {
+            "ArtifactName": "test-image",
             "Results": [
                 {
                     "Target": "test-image",
@@ -104,6 +105,12 @@ class LicensePolicyTests(unittest.TestCase):
         result = self.run_checker(self.report(category="unknown"))
         self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
 
+
+    def test_pending_notice_tracking_fails(self):
+        result = self.run_checker(self.report(category="notice"))
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        self.assertIn("NOTICE_TRACKING_REQUIRED", result.stdout)
+        self.assertIn("POLICY GATE FAILED", result.stdout)
 
 if __name__ == "__main__":
     unittest.main()

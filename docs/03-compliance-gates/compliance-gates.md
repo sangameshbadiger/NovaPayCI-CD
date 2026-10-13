@@ -88,7 +88,9 @@ requirement is compliant.
 
 ## License Compliance Gate — Trivy
 
-**Status:** Implemented for reporting; release enforcement and exception validation are pending.
+
+**Status:** Release enforcement and approval-exception validation implemented. Automated tests: 7/7 passing. Latest policy evaluation: FAILED; 106 findings remain unresolved or unverified.
+
 
 ### Policy
 - Policy file: `policies/licenses/license-policy.json`
@@ -112,7 +114,11 @@ requirement is compliant.
 - Unencumbered licenses: verify the classification before allowing use.
 
 ### Exceptions and audit trail
-The policy requires documented approval, a reason, and an expiry for exceptions. The current checker does not yet validate exception records or enforce release blocking. Until that functionality is implemented and tested, this control is report-only and must not be described as an enforced release gate.
+
+The policy requires documented approval, a reason, and an expiry for exceptions. The checker validates approval records and enforces release blocking when unresolved findings remain. Notice findings require a matching tracking record with `VERIFIED` status and an existing evidence file. Notice records currently marked `PENDING_REVIEW` or missing evidence remain unresolved.
+
+The latest policy evaluation failed with 106 unresolved or unverified findings. Automated tests pass (7/7), but this does not mean the current dependency set is cleared for release.
+
 
 Retain the source report, policy version, evaluation summary, repository commit, image/build identifier, reviewer, decision, and any approved exception records as audit evidence.
 
