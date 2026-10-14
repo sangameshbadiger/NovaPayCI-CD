@@ -1,0 +1,22 @@
+NovaPay license review: nginx-module-acme
+
+Package: nginx-module-acme
+Version: 1.30.5.0.4.1-r1
+
+Observed package metadata:
+License: 2-clause BSD-like license
+Package URL: https://nginx.org/
+
+Observed package contents:
+- usr/lib/nginx/modules/ngx_http_acme_module-debug.so
+- usr/lib/nginx/modules/ngx_http_acme_module.so
+- usr/share/licenses/nginx-module-acme/COPYRIGHT
+
+The bundled COPYRIGHT file begins with Apache License 2.0 text.
+
+Review status: PENDING_REVIEW
+
+The package metadata and bundled copyright text appear inconsistent.
+This note records the observation; it does not determine the applicable
+license. Verify the upstream source and authoritative Alpine package
+recipe before changing license classification or approving distribution.
