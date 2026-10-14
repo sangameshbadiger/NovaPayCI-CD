@@ -279,42 +279,42 @@
       "package": "nginx-module-acme",
       "version": "1.30.5.0.4.1-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
+      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-acme-COPYRIGHT",
       "status": "PENDING_REVIEW"
     },
     {
       "package": "nginx-module-geoip",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
+      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-geoip-COPYRIGHT",
       "status": "PENDING_REVIEW"
     },
     {
       "package": "nginx-module-image-filter",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
+      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-image-filter-COPYRIGHT",
       "status": "PENDING_REVIEW"
     },
     {
       "package": "nginx-module-njs",
       "version": "1.30.5.1.0.1-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
+      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-njs-COPYRIGHT",
       "status": "PENDING_REVIEW"
     },
     {
       "package": "nginx-module-xslt",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
+      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-xslt-COPYRIGHT",
       "status": "PENDING_REVIEW"
     },
     {
       "package": "nginx",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
+      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-COPYRIGHT",
       "status": "PENDING_REVIEW"
     },
     {
