@@ -10,6 +10,7 @@ POLICY_PATH = BASE / "policies/licenses/license-policy.json"
 APPROVAL_PATH = BASE / "policies/licenses/approved-exceptions.json"
 DEFAULT_REPORT = BASE / "evidence/test-results/licenses/license-scan.json"
 NOTICE_TRACKING_PATH = BASE / "policies/licenses/notice-tracking.json"
+ALIAS_PATH = BASE / "policies/licenses/license-aliases.json"
 
 def load_json(path):
     try:
@@ -93,6 +94,7 @@ def main():
         report = load_json(report_path)
         register = load_json(APPROVAL_PATH)
         tracking = load_json(NOTICE_TRACKING_PATH)
+        alias_config = load_json(ALIAS_PATH)
     except ValueError as exc:
         print(f"ERROR: {exc}")
         return 2
@@ -112,6 +114,16 @@ def main():
         return 2
 
     notice_entries = tracking["entries"]
+    if (
+        not isinstance(alias_config, dict)
+        or not isinstance(alias_config.get("aliases"), dict)
+        or not isinstance(alias_config.get("requires_manual_review"), list)
+    ):
+        print("ERROR: Invalid license alias configuration.")
+        return 2
+
+    aliases = alias_config["aliases"]
+    manual_review = set(alias_config["requires_manual_review"])
     rules = policy.get("rules", {})
     today = date.today()
     categories = Counter()
@@ -121,12 +133,18 @@ def main():
     for result in report.get("Results", []):
         for item in result.get("Licenses", []):
             package = item.get("PkgName") or "unknown"
-            license_name = item.get("Name") or "UNKNOWN"
+            raw_license_name = item.get("Name") or "UNKNOWN"
+            license_name = aliases.get(raw_license_name, raw_license_name)
             category = (item.get("Category") or "unknown").lower()
             severity = (item.get("Severity") or "UNKNOWN").upper()
             action = rules.get(
                 category, policy.get("default_action", "REVIEW_REQUIRED")
             )
+
+            # An alias only normalizes a label; it never grants approval.
+            # Identifiers requiring manual review cannot be auto-approved.
+            if raw_license_name in manual_review:
+                action = "REVIEW_REQUIRED"
 
             categories[category] += 1
 

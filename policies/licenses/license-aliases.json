@@ -1,0 +1,21 @@
+{
+  "policy_version": "1.0",
+  "description": "Reviewed mappings for non-SPDX license identifiers reported by Alpine packages",
+  "aliases": {
+    "X-11": "X11",
+    "Public-Domain": "Public Domain",
+    "Public": "Public Domain",
+    "Domain": "Public Domain"
+  },
+  "requires_manual_review": [
+    "custom",
+    "curl",
+    "bzip-2-1.0.6",
+    "GD",
+    "IJG",
+    "Beerware",
+    "libtiff",
+    "2-clause",
+    "license"
+  ]
+}

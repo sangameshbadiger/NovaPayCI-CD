@@ -112,5 +112,20 @@ class LicensePolicyTests(unittest.TestCase):
         self.assertIn("NOTICE_TRACKING_REQUIRED", result.stdout)
         self.assertIn("POLICY GATE FAILED", result.stdout)
 
+
+    def test_manual_review_license_is_not_auto_approved(self):
+        result = self.run_checker(self.report(category="unknown"))
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        self.assertIn("REVIEW_REQUIRED", result.stdout)
+        self.assertIn("POLICY GATE FAILED", result.stdout)
+
+    def test_ambiguous_license_names_require_manual_review(self):
+        aliases_path = ROOT / "policies/licenses/license-aliases.json"
+        config = json.loads(aliases_path.read_text())
+        manual = set(config["requires_manual_review"])
+        self.assertTrue(
+            {"custom", "GD", "IJG", "Beerware"} <= manual
+        )
+
 if __name__ == "__main__":
     unittest.main()
