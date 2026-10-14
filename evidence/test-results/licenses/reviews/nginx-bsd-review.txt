@@ -1,0 +1,20 @@
+NovaPay license notice review
+Review scope: NGINX BSD-style copyright files
+
+Files inspected:
+- evidence/test-results/licenses/nginx-copyright/nginx-COPYRIGHT
+- evidence/test-results/licenses/nginx-copyright/nginx-module-geoip-COPYRIGHT
+- evidence/test-results/licenses/nginx-copyright/nginx-module-image-filter-COPYRIGHT
+- evidence/test-results/licenses/nginx-copyright/nginx-module-njs-COPYRIGHT
+- evidence/test-results/licenses/nginx-copyright/nginx-module-xslt-COPYRIGHT
+
+Observed:
+- Copyright notices are present.
+- Source and binary redistribution conditions are present.
+- Warranty and liability disclaimer text is present.
+
+Limitation:
+This records a preliminary text inspection only. It does not establish
+that all distribution obligations are satisfied or independently approve
+the scanner's package-to-license mapping. Authorized compliance review
+is required before marking tracking entries VERIFIED.
