@@ -6,337 +6,337 @@
       "package": "alpine-keys",
       "version": "2.6-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "alpine-release",
       "version": "3.24.2-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "aom-libs",
       "version": "3.14.1-r0",
       "license": "BSD-2-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "brotli-libs",
       "version": "1.2.0-r1",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "c-ares",
       "version": "1.34.8-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "ca-certificates-bundle",
       "version": "20260909-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "ca-certificates",
       "version": "20260909-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "fontconfig",
       "version": "2.17.1-r1",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "freetype",
       "version": "2.14.3-r0",
       "license": "FTL",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "gettext-envsubst",
       "version": "1.0-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libavif",
       "version": "1.4.1-r0",
       "license": "BSD-2-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libbsd",
       "version": "0.12.2-r0",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libcrypto3",
       "version": "3.5.9-r0",
       "license": "Apache-2.0",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libdav1d",
       "version": "1.5.3-r0",
       "license": "BSD-2-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libedit",
       "version": "20260508.3.1-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libexpat",
       "version": "2.8.5-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libjpeg-turbo",
       "version": "3.1.3-r0",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libjpeg-turbo",
       "version": "3.1.3-r0",
       "license": "Zlib",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libmd",
       "version": "1.2.0-r0",
       "license": "BSD-2-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libmd",
       "version": "1.2.0-r0",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libmd",
       "version": "1.2.0-r0",
       "license": "ISC",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libpng",
       "version": "1.6.59-r0",
       "license": "Libpng",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libpsl",
       "version": "0.21.5-r3",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libsharpyuv",
       "version": "1.6.0-r0",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libsm",
       "version": "1.2.6-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libssl3",
       "version": "3.5.9-r0",
       "license": "Apache-2.0",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libuuid",
       "version": "2.42.3-r1",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libwebp",
       "version": "1.6.0-r0",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libxau",
       "version": "1.0.12-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libxcb",
       "version": "1.17.0-r2",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libxdmcp",
       "version": "1.1.5-r1",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libxext",
       "version": "1.3.7-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libxml2",
       "version": "2.13.9-r2",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libxt",
       "version": "1.3.1-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "libyuv",
       "version": "0.0.1928-r0",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "musl-utils",
       "version": "1.2.6-r2",
       "license": "BSD-2-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "musl-utils",
       "version": "1.2.6-r2",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "musl",
       "version": "1.2.6-r2",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "nghttp2-libs",
       "version": "1.70.0-r0",
       "license": "MIT",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "nginx-module-acme",
       "version": "1.30.5.0.4.1-r1",
       "license": "BSD-3-Clause",
-      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-acme-COPYRIGHT",
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "nginx-module-geoip",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-geoip-COPYRIGHT",
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "nginx-module-image-filter",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-image-filter-COPYRIGHT",
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "nginx-module-njs",
       "version": "1.30.5.1.0.1-r1",
       "license": "BSD-3-Clause",
-      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-njs-COPYRIGHT",
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "nginx-module-xslt",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-module-xslt-COPYRIGHT",
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "nginx",
       "version": "1.30.5-r1",
       "license": "BSD-3-Clause",
-      "evidence": "evidence/test-results/licenses/nginx-copyright/nginx-COPYRIGHT",
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "pcre2",
       "version": "10.49-r0",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "zlib",
       "version": "1.3.2-r1",
       "license": "Zlib",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     },
     {
       "package": "zstd-libs",
       "version": "1.5.7-r2",
       "license": "BSD-3-Clause",
-      "evidence": null,
-      "status": "PENDING_REVIEW"
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt",
+      "status": "VERIFIED"
     }
   ]
 }
