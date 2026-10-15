@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_DEFAULT_REGION = 'ap-south-1'
-        ECR_REGISTRY       = '://amazonaws.com'
+        ECR_REGISTRY       = '570064633022.dkr.ecr.ap-south-1.amazonaws.com'
         APP_NAME           = 'novapay-app'
     }
     stages {
