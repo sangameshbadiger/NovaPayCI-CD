@@ -4,6 +4,7 @@ pipeline {
         AWS_DEFAULT_REGION = 'ap-south-1'
         ECR_REGISTRY       = '570064633022.dkr.ecr.ap-south-1.amazonaws.com'
         APP_NAME           = 'novapay-app'
+        TARGET_SLOT        = 'blue' // Default deployment slot to prevent blank arguments
     }
     stages {
         stage('Checkout') {
@@ -31,7 +32,7 @@ pipeline {
         }
         stage('Switch Traffic') {
             steps {
-                sh 'sudo -n /usr/local/bin/novapay-switch "$TARGET_SLOT"'
+                sh 'sudo -n /usr/local/bin/novapay-switch "${TARGET_SLOT}"'
             }
         }
     }
