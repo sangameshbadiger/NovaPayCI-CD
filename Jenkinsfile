@@ -30,20 +30,6 @@ pipeline {
                 sh '/usr/local/bin/trivy image --scanners vuln --severity HIGH,CRITICAL --exit-code 1 --format table ${APP_NAME}:${BUILD_NUMBER}'
             }
         }
-        stage('Switch Traffic') {
-            steps {
-                sh 'sudo -n /usr/local/bin/novapay-switch "${TARGET_SLOT}"'
-            }
-        }
-    }
-}
-stage('Trivy Security Scan') {
-            steps {
-                sh '/usr/local/bin/trivy image --scanners vuln --severity HIGH,CRITICAL --exit-code 1 --format table ${APP_NAME}:${BUILD_NUMBER}'
-            }
-        }
-        
-        
         stage('Trivy License Scan') {
             steps {
                 sh '''
@@ -52,3 +38,10 @@ stage('Trivy Security Scan') {
                 '''
             }
         }
+        stage('Switch Traffic') {
+            steps {
+                sh 'sudo -n /usr/local/bin/novapay-switch "${TARGET_SLOT}"'
+            }
+        }
+    }
+}
