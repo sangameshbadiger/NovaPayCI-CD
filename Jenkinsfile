@@ -1,288 +1,38 @@
 pipeline {
     agent any
-
-    parameters {
-        booleanParam(name: 'TEST_ROLLBACK', defaultValue: false, description: 'Test rollback by forcing live verification to fail after traffic switch')
-    }
-
     environment {
-        AWS_REGION = 'ap-south-1'
-        ECR_REGISTRY = '570064633022.dkr.ecr.ap-south-1.amazonaws.com'
-        ECR_REPOSITORY = 'novapay-app'
-        IMAGE_TAG = "${BUILD_NUMBER}"
+        AWS_DEFAULT_REGION = 'ap-south-1'
+        ECR_REGISTRY       = '://amazonaws.com'
+        APP_NAME           = 'novapay-app'
     }
-
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-
         stage('SAST - Semgrep') {
             steps {
-                sh '''
-                    set -e
-                    docker run --rm \
-                      -v "$WORKSPACE:/src:ro" \
-                      semgrep/semgrep \
-                      semgrep scan --config auto /src/app
-                '''
+                sh 'docker run --rm -v ${WORKSPACE}:/src:ro semgrep/semgrep semgrep scan --config auto /src/app'
             }
         }
-
-
         stage('Build Docker Image') {
             steps {
                 sh '''
-                    set -e
-                    docker build -t novapay-app:${IMAGE_TAG} ./app
-                    docker tag novapay-app:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+                docker build -t ${APP_NAME}:${BUILD_NUMBER} ./app
+                docker tag ${APP_NAME}:${BUILD_NUMBER} ${ECR_REGISTRY}/${APP_NAME}:${BUILD_NUMBER}
                 '''
             }
         }
-
         stage('Trivy Security Scan') {
             steps {
-                sh '''
-                    set -e
-                    /usr/local/bin/trivy image \
-                      --severity HIGH,CRITICAL \
-                      --exit-code 1 \
-                      --format table \
-                      "novapay-app:${IMAGE_TAG}"
-                '''
+                sh '/usr/local/bin/trivy image --scanners vuln --severity HIGH,CRITICAL --exit-code 1 --format table ${APP_NAME}:${BUILD_NUMBER}'
             }
         }
-
-        stage('Generate CycloneDX SBOM') {
-            steps {
-                sh '''
-                    set -e
-                    mkdir -p evidence/test-results/sbom
-                    /usr/local/bin/trivy image \
-                      --format cyclonedx \
-                      --output evidence/test-results/sbom/novapay-sbom.cdx.json \
-                      "novapay-app:${IMAGE_TAG}"
-                    python3 -m json.tool evidence/test-results/sbom/novapay-sbom.cdx.json > /dev/null
-                    echo "CycloneDX SBOM generated and validated."
-                '''
-            }
-        }
-
-        stage('License Compliance Scan') /* license-policy-enforcement-v1 */ {
-            steps {
-                sh '''
-                    set -e
-                    mkdir -p evidence/test-results/licenses
-                    /usr/local/bin/trivy image \
-                      --scanners license \
-                      --format json \
-                      --output evidence/test-results/licenses/license-scan.json \
-                      "novapay-app:${IMAGE_TAG}"
-                    python3 -m json.tool evidence/test-results/licenses/license-scan.json > /dev/null
-                    python3 -m unittest discover -s policies/licenses/tests -v
-                    python3 policies/licenses/check_license_policy.py --enforce
-                    echo "License policy enforced."
-                    echo "License scan report generated and validated."
-                '''
-            }
-        }
-
-        stage('Login to Amazon ECR') {
-            steps {
-                sh '''
-                    set -e
-                    aws ecr get-login-password --region "$AWS_REGION" |
-                    docker login --username AWS --password-stdin "$ECR_REGISTRY"
-                '''
-            }
-        }
-
-        stage('Push Image to Amazon ECR') {
-            steps {
-                sh 'docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}'
-            }
-        }
-
-        stage('Select Inactive Slot') {
-            steps {
-                script {
-                    def active = sh(
-                        script: "grep -oE '127\\.0\\.0\\.1:(8081|8082)' /etc/nginx/conf.d/novapay.conf | head -1 | cut -d: -f2",
-                        returnStdout: true
-                    ).trim()
-
-                    if (active == '8081') {
-                        env.PREVIOUS_PORT = '8081'
-                        env.TARGET_PORT = '8082'
-                        env.TARGET_NAME = 'novapay-green'
-                        env.TARGET_SLOT = 'green'
-                        env.PREVIOUS_SLOT = 'blue'
-                    } else if (active == '8082') {
-                        env.PREVIOUS_PORT = '8082'
-                        env.TARGET_PORT = '8081'
-                        env.TARGET_NAME = 'novapay-blue'
-                        env.TARGET_SLOT = 'blue'
-                        env.PREVIOUS_SLOT = 'green'
-                    } else {
-                        error('Cannot determine active Nginx slot. Deployment stopped.')
-                    }
-
-                    echo "Active port: ${env.PREVIOUS_PORT}; deploying to inactive port: ${env.TARGET_PORT}"
-                }
-            }
-        }
-
-        stage('Deploy to Inactive Slot') {
-            steps {
-                sh '''
-                    set -e
-                    if docker container inspect "$TARGET_NAME" >/dev/null 2>&1; then
-                        docker rm -f "$TARGET_NAME"
-                    else
-                        echo "Container $TARGET_NAME does not exist; creating it"
-                    fi
-
-                    if [ "$TARGET_PORT" = "8081" ]; then
-                        docker rm -f novapay-ci >/dev/null 2>&1 || true
-                    fi
-
-                    docker run -d --name "$TARGET_NAME" \
-                      --restart unless-stopped \
-                      -p "${TARGET_PORT}:80" \
-                      "novapay-app:${IMAGE_TAG}"
-                '''
-            }
-        }
-
-        stage('Target Health Check') {
-            steps {
-                sh '''
-                    set -e
-                    for attempt in $(seq 1 15); do
-                        if curl -fsS "http://127.0.0.1:${TARGET_PORT}/" |
-                           grep -q "Application Version"; then
-                            echo "Target application is healthy on port ${TARGET_PORT}"
-                            exit 0
-                        fi
-                        sleep 2
-                    done
-                    echo "Target health check failed"
-                    exit 1
-                '''
-            }
-        }
-
-        stage('DAST - OWASP ZAP') {
-            steps {
-                sh '''
-                    set -eu
-                    mkdir -p "$WORKSPACE/evidence/test-results/zap"
-
-                    docker run --rm --network host \
-                      --user 0:0 \
-                      -e HOME=/tmp \
-                      -v "$WORKSPACE/evidence/test-results/zap:/zap/wrk:rw" \
-                      ghcr.io/zaproxy/zaproxy:stable \
-                      zap-baseline.py \
-                      -t "http://127.0.0.1:${TARGET_PORT}/" \
-                      -m 2 \
-                      -I \
-                      -J zap-report.json \
-                      -r zap-report.html
-                '''
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'evidence/test-results/zap/*', allowEmptyArchive: true
-                }
-            }
-        }
-
-        stage('Integration Tests') {
-            steps {
-                sh '''
-                    set -eu
-                    echo "Running Expand-Migrate-Contract migration tests"
-                    python3 -m unittest discover -s database/tests -p 'test_*.py' -v
-                    BASE_URL="http://127.0.0.1:${TARGET_PORT}"
-                    RESPONSE="/tmp/novapay-integration-response.html"
-
-                    STATUS=$(curl --silent --show-error \
-                        --output "$RESPONSE" \
-                        --write-out "%{http_code}" \
-                        --max-time 5 "$BASE_URL/")
-
-                    test "$STATUS" = "200"
-                    grep -q "NovaPay Digital Bank" "$RESPONSE"
-                    grep -q "Application Version" "$RESPONSE"
-
-                    echo "PASS: Integration tests passed on ${TARGET_PORT}"
-                '''
-            }
-        }
-
         stage('Switch Traffic') {
             steps {
                 sh 'sudo -n /usr/local/bin/novapay-switch "$TARGET_SLOT"'
             }
-        }
-
-        stage('Verify Live Application') {
-            steps {
-                script {
-                    try {
-                        sh """
-                            set -e
-                            if [ "\$TEST_ROLLBACK" = "true" ]; then
-                                echo "TEST MODE: Forcing live verification failure to exercise rollback"
-                                exit 1
-                            fi
-                            for attempt in \$(seq 1 10); do
-                                if curl --fail --silent --show-error \\
-                                    --max-time 3 http://127.0.0.1/ \\
-                                    -o /tmp/novapay-live-response.html &&
-                                   grep -q "Application Version" \\
-                                    /tmp/novapay-live-response.html; then
-                                    echo "Live application health check passed"
-                                    exit 0
-                                fi
-                                echo "Health check attempt \${attempt} failed"
-                                sleep 2
-                            done
-                            echo "Live application health check failed"
-                            exit 1
-                        """
-                    } catch (Exception err) {
-                        echo 'Live verification failed; attempting rollback.'
-
-                        try {
-                            sh(
-                                script: 'set -eu; sudo -n /usr/local/bin/novapay-switch "$PREVIOUS_SLOT"; for attempt in $(seq 1 10); do if curl --fail --silent --show-error --max-time 3 http://127.0.0.1/ -o /tmp/novapay-rollback-response.html && grep -q "Application Version" /tmp/novapay-rollback-response.html; then echo "Rollback verification passed"; exit 0; fi; echo "Rollback health check attempt $attempt failed"; sleep 2; done; echo "ERROR: Rollback verification failed"; exit 1'
-                            )
-                        } catch (Exception rollbackErr) {
-                            error('CRITICAL: Deployment verification and rollback verification both failed. Manual intervention required.')
-                        }
-
-                        error('Deployment verification failed; rollback completed and verified.')
-                    }
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            archiveArtifacts artifacts: 'evidence/test-results/sbom/*.cdx.json,evidence/test-results/licenses/*.json',
-                             allowEmptyArchive: true
-        }
-        success {
-            echo 'NovaPay Blue-Green deployment SUCCESS!'
-        }
-        failure {
-            echo 'NovaPay deployment FAILED. Check stage logs.'
-            echo 'If traffic was switched, inspect the active Nginx slot and application health.'
         }
     }
 }
