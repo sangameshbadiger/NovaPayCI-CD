@@ -101,6 +101,20 @@ class LicensePolicyTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
 
+    def test_missing_package_version_fails_closed(self):
+        report = self.report()
+        report["Results"][0]["Packages"][0]["Version"] = None
+
+        result = self.run_checker(
+            report, [self.approval()]
+        )
+
+        self.assertEqual(
+            result.returncode, 1,
+            result.stdout + result.stderr
+        )
+        self.assertIn("POLICY GATE FAILED", result.stdout)
+
     def test_unknown_finding_fails_without_approval(self):
         result = self.run_checker(self.report(category="unknown"))
         self.assertEqual(result.returncode, 1, result.stdout + result.stderr)

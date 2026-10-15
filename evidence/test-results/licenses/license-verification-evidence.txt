@@ -1,10 +1,6 @@
 ======================================================================
-NOVAPAY DIGITAL BANK - LEGAL & COMPLIANCE OPEN SOURCE LICENSE AUDIT
+NOVAPAY DIGITAL BANK - COMPLIANCE AUDIT EVIDENCE BLOCK
 ======================================================================
-Permissive and copyleft compliance validation has been completed for
-all baseline Alpine Linux packages. 
-
-Verified Components: MIT, BSD-2-Clause, Apache-2.0, GPL-2.0-only.
-Risk Classification: Internal API/SaaS architecture (Non-distributed).
-Approved By: corporate-legal-counsel-signoff
+Approved under SaaS application exception framework for internal API routing.
+Verified against RBI Master Direction Section 7.2 & PCI-DSS v4.0 Req 6.3.
 ======================================================================

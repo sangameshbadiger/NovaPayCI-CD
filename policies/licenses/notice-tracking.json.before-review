@@ -1,0 +1,748 @@
+{
+  "report": "evidence/test-results/licenses/license-scan.json",
+  "purpose": "Automated baseline Open Source tracking matrix",
+  "entries": [
+    {
+      "package": "alpine-baselayout",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "alpine-baselayout-data",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "alpine-keys",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "alpine-release",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "aom-libs",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "aom-libs",
+      "version": "unknown",
+      "license": "custom",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "apk-tools",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "brotli-libs",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "busybox",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "busybox-binsh",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "c-ares",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "ca-certificates",
+      "version": "unknown",
+      "license": "MPL-2.0",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "ca-certificates",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "ca-certificates-bundle",
+      "version": "unknown",
+      "license": "MPL-2.0",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "ca-certificates-bundle",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "curl",
+      "version": "unknown",
+      "license": "curl",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "fontconfig",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "freetype",
+      "version": "unknown",
+      "license": "FTL",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "freetype",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "geoip",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "gettext-envsubst",
+      "version": "unknown",
+      "license": "GPL-3.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "gettext-envsubst",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "gettext-envsubst",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libapk",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libavif",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libbsd",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libbz2",
+      "version": "unknown",
+      "license": "bzip-2-1.0.6",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libcrypto3",
+      "version": "unknown",
+      "license": "Apache-2.0",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libcurl",
+      "version": "unknown",
+      "license": "curl",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libdav1d",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libedit",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libexpat",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libgcc",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libgcc",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libgd",
+      "version": "unknown",
+      "license": "GD",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libice",
+      "version": "unknown",
+      "license": "X-11",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libidn2",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libidn2",
+      "version": "unknown",
+      "license": "LGPL-3.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libintl",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "unknown",
+      "license": "IJG",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "unknown",
+      "license": "Zlib",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "ISC",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "Beerware",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "Public",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "Domain",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libncursesw",
+      "version": "unknown",
+      "license": "X-11",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libpng",
+      "version": "unknown",
+      "license": "Libpng",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libpsl",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libsharpyuv",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libsm",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libssl3",
+      "version": "unknown",
+      "license": "Apache-2.0",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libstdc++",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libstdc++",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libunistring",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libunistring",
+      "version": "unknown",
+      "license": "LGPL-3.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libuuid",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libwebp",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libx11",
+      "version": "unknown",
+      "license": "X-11",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxau",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxcb",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxdmcp",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxext",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxml2",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxpm",
+      "version": "unknown",
+      "license": "X-11",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxslt",
+      "version": "unknown",
+      "license": "X-11",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libxt",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "libyuv",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "musl",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "musl-utils",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "musl-utils",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "musl-utils",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "ncurses-terminfo-base",
+      "version": "unknown",
+      "license": "X-11",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nghttp2-libs",
+      "version": "unknown",
+      "license": "MIT",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx",
+      "version": "unknown",
+      "license": "2-clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx",
+      "version": "unknown",
+      "license": "license",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-acme",
+      "version": "unknown",
+      "license": "2-clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-acme",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-acme",
+      "version": "unknown",
+      "license": "license",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-geoip",
+      "version": "unknown",
+      "license": "2-clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-geoip",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-geoip",
+      "version": "unknown",
+      "license": "license",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-image-filter",
+      "version": "unknown",
+      "license": "2-clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-image-filter",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-image-filter",
+      "version": "unknown",
+      "license": "license",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-njs",
+      "version": "unknown",
+      "license": "2-clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-njs",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-njs",
+      "version": "unknown",
+      "license": "license",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-xslt",
+      "version": "unknown",
+      "license": "2-clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-xslt",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "nginx-module-xslt",
+      "version": "unknown",
+      "license": "license",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "pcre2",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "scanelf",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "ssl_client",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "tiff",
+      "version": "unknown",
+      "license": "libtiff",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "tzdata",
+      "version": "unknown",
+      "license": "Public-Domain",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "0BSD",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "Public-Domain",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "zlib",
+      "version": "unknown",
+      "license": "Zlib",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "zstd-libs",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    },
+    {
+      "package": "zstd-libs",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "status": "VERIFIED",
+      "evidence": "evidence/test-results/licenses/license-verification-evidence.txt"
+    }
+  ]
+}

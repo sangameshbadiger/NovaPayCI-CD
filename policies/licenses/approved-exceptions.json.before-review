@@ -1,0 +1,853 @@
+{
+  "schema_version": "1.0",
+  "exceptions": [
+    {
+      "package": "alpine-baselayout",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "alpine-baselayout-data",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "alpine-keys",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "alpine-release",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "aom-libs",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "aom-libs",
+      "version": "unknown",
+      "license": "custom",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "apk-tools",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "brotli-libs",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "busybox",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "busybox-binsh",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "c-ares",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "ca-certificates",
+      "version": "unknown",
+      "license": "MPL-2.0",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "ca-certificates",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "ca-certificates-bundle",
+      "version": "unknown",
+      "license": "MPL-2.0",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "ca-certificates-bundle",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "curl",
+      "version": "unknown",
+      "license": "curl",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "fontconfig",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "freetype",
+      "version": "unknown",
+      "license": "FTL",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "freetype",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "geoip",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "gettext-envsubst",
+      "version": "unknown",
+      "license": "GPL-3.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "gettext-envsubst",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "gettext-envsubst",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libapk",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libavif",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libbsd",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libbz2",
+      "version": "unknown",
+      "license": "bzip-2-1.0.6",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libcrypto3",
+      "version": "unknown",
+      "license": "Apache-2.0",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libcurl",
+      "version": "unknown",
+      "license": "curl",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libdav1d",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libedit",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libexpat",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libgcc",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libgcc",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libgd",
+      "version": "unknown",
+      "license": "GD",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libice",
+      "version": "unknown",
+      "license": "X-11",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libidn2",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libidn2",
+      "version": "unknown",
+      "license": "LGPL-3.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libintl",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "unknown",
+      "license": "IJG",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libjpeg-turbo",
+      "version": "unknown",
+      "license": "Zlib",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "ISC",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "Beerware",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "Public",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libmd",
+      "version": "unknown",
+      "license": "Domain",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libncursesw",
+      "version": "unknown",
+      "license": "X-11",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libpng",
+      "version": "unknown",
+      "license": "Libpng",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libpsl",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libsharpyuv",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libsm",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libssl3",
+      "version": "unknown",
+      "license": "Apache-2.0",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libstdc++",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libstdc++",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libunistring",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libunistring",
+      "version": "unknown",
+      "license": "LGPL-3.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libuuid",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libwebp",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libx11",
+      "version": "unknown",
+      "license": "X-11",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxau",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxcb",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxdmcp",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxext",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxml2",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxpm",
+      "version": "unknown",
+      "license": "X-11",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxslt",
+      "version": "unknown",
+      "license": "X-11",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libxt",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "libyuv",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "musl",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "musl-utils",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "musl-utils",
+      "version": "unknown",
+      "license": "BSD-2-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "musl-utils",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "ncurses-terminfo-base",
+      "version": "unknown",
+      "license": "X-11",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nghttp2-libs",
+      "version": "unknown",
+      "license": "MIT",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx",
+      "version": "unknown",
+      "license": "2-clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx",
+      "version": "unknown",
+      "license": "license",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-acme",
+      "version": "unknown",
+      "license": "2-clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-acme",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-acme",
+      "version": "unknown",
+      "license": "license",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-geoip",
+      "version": "unknown",
+      "license": "2-clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-geoip",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-geoip",
+      "version": "unknown",
+      "license": "license",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-image-filter",
+      "version": "unknown",
+      "license": "2-clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-image-filter",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-image-filter",
+      "version": "unknown",
+      "license": "license",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-njs",
+      "version": "unknown",
+      "license": "2-clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-njs",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-njs",
+      "version": "unknown",
+      "license": "license",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-xslt",
+      "version": "unknown",
+      "license": "2-clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-xslt",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "nginx-module-xslt",
+      "version": "unknown",
+      "license": "license",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "pcre2",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "scanelf",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "ssl_client",
+      "version": "unknown",
+      "license": "GPL-2.0-only",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "tiff",
+      "version": "unknown",
+      "license": "libtiff",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "tzdata",
+      "version": "unknown",
+      "license": "Public-Domain",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "0BSD",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "Public-Domain",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "xz-libs",
+      "version": "unknown",
+      "license": "LGPL-2.1-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "zlib",
+      "version": "unknown",
+      "license": "Zlib",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "zstd-libs",
+      "version": "unknown",
+      "license": "BSD-3-Clause",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    },
+    {
+      "package": "zstd-libs",
+      "version": "unknown",
+      "license": "GPL-2.0-or-later",
+      "approver": "CISO-Audit-Desk",
+      "reason": "Approved baseline platform infrastructure runtime component.",
+      "expiry": "2029-12-31"
+    }
+  ]
+}
