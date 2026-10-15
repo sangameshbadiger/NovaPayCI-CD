@@ -1,0 +1,20 @@
+# Acceptable OS Licenses for Base Alpine Image
+alpine-baselayout
+alpine-baselayout-data
+apk-tools
+busybox
+busybox-binsh
+libapk
+libgcc
+libstdc++
+musl-utils
+scanelf
+ssl_client
+xz-libs
+zstd-libs
+libidn2
+libunistring
+gettext-envsubst
+geoip
+libintl
+freetype
