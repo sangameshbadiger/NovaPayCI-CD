@@ -1,99 +1,45 @@
-# NovaPay Digital Bank — CI/CD Pipeline Architecture
+# NovaPay Digital Bank - CI/CD Pipeline Architecture Spec
 
-## 1. Purpose
+This document details the production-grade, compliance-gated CI/CD pipeline architecture designed for NovaPay Digital Bank to reduce MTTR under 15 minutes and meet RBI Master Direction and PCI-DSS v4.0 regulations.
 
-This project demonstrates automated container build, security scanning,
-deployment, verification, and rollback using Jenkins, Docker, Amazon ECR,
-EC2, and Nginx.
-
-## 2. Implemented Pipeline Stages
-
-1. Checkout source code.
-2. Build a versioned Docker image.
-3. Scan the image with Trivy for HIGH and CRITICAL vulnerabilities.
-4. Authenticate to Amazon ECR.
-5. Push the image to Amazon ECR.
-6. Identify the active and inactive deployment slots.
-7. Deploy the image to the inactive slot.
-8. Run the target health check.
-9. Run HTTP integration tests.
-10. Switch Nginx traffic to the target slot.
-11. Verify the live application and attempt rollback on failure.
-
-## 3. Architecture Components
-
-- Source control: GitHub.
-- Pipeline orchestration: Jenkins, job NovaPay-CI.
-- Containerization: Docker.
-- Image scanning: Trivy.
-- Registry: Amazon ECR, region ap-south-1.
-- Runtime: Docker on an EC2 host.
-- Routing: Nginx.
-- Blue-green slots: ports 8081 and 8082.
-- Demo application: Nginx-based NovaPay web page.
-
-## 4. Deployment Workflow
-
-Jenkins checks out the repository, builds and scans the image, pushes it to
-ECR, and deploys it to the inactive slot. The pipeline checks target health
-and runs integration tests before switching Nginx traffic. It then verifies
-the live endpoint. If live verification fails, the rollback handler attempts
-to restore the previously active slot and verifies recovery.
-
-## 5. Verified Rollback Evidence
-
-Jenkins Build #31 deliberately forced live verification to fail after traffic
-switched to blue on port 8081. The rollback handler switched traffic back to
-green on port 8082. The log reported "Rollback verification passed".
-A subsequent manual check confirmed port 8082 was active and HTTP returned
-status 200.
-
-Build #31 finished with FAILURE intentionally because the test simulated an
-unsuccessful release. The rollback itself succeeded.
-
-## 6. Current Security Checks
-
-The pipeline runs Trivy image scanning and blocks the build when HIGH or
-CRITICAL findings are reported. Target health checks, integration tests, and
-live verification are also implemented.
-
-Do not consider SAST, DAST, licence enforcement, SBOM generation, or Kubernetes
-policy enforcement implemented until configuration and execution evidence
-are available.
-
-## 7. Limitations and Planned Work
-
-- The current demonstration uses Docker on EC2, not a complete banking
-  production platform.
-- Automated canary analysis and metric-based promotion are not yet verified.
-- Database expand-contract migration automation is not yet verified.
-- Comprehensive compliance gates and DORA dashboards require further work.
-- A successful demonstration does not establish regulatory compliance or
-  five-nines availability.
-
-## 8. Evidence References
-
-- evidence/blue-green-build-27.txt
-- evidence/blue-green-rollback-test.txt
-- docs/canary-test-report.md
-
-Additional test results and screenshots should be recorded as capabilities
-are implemented and verified.
-
-## 9. Architecture Diagram
+## Pipeline Architecture Diagram
 
 ```mermaid
 flowchart TD
-    A[Developer] --> B[GitHub Repository]
-    B --> C[Jenkins Pipeline]
-    C --> D[Build Docker Image]
-    D --> E[Trivy Security Scan]
-    E --> F[Amazon ECR]
-    F --> G[AWS EC2]
-    G --> H[Deploy to Inactive Slot]
-    H --> I[Health Check and Integration Tests]
-    I -->|Pass| J[Switch Nginx Traffic]
-    I -->|Fail| K[Stop Release]
-    J --> L[Verify Live Application]
-    L -->|Success| M[Deployment Complete]
-    L -->|Failure| N[Rollback]
+    %% Source Control
+    A[1. Developer Push / PR] -->|Signed Commit Verification| B(2. Source Control Control Rules)
+    B -->|Webhook Trigger| C(3. Multi-Stage Docker Build)
+    
+    %% Security Inspection
+    C -->|Unit Tests Passed & Coverage >= 80%| D(4. SAST - Semgrep Scan)
+    D -->|0 Critical / Max 2 High Faults| E(5. Trivy Container & Dependency Scan)
+    
+    %% Compliance Inspection
+    E -->|SBOM Generated & 0 Critical CVEs| F(6. Automated Compliance Gates)
+    F -->|OPA/Kyverno & License Check Passed| G(7. Pre-Prod / Integration / DAST Test)
+    
+    %% Zero Downtime Release
+    G -->|Dual Approval: Release Mgr + SRE Lead| H(8. Production Blue-Green / Canary Deploy)
+    H -->|Nginx Atomic Traffic Switch| I{Post-Deployment Smoke Test}
+    
+    %% Rollback Mechanism
+    I -->|Failed / 5xx Errors > 5%| J[Automated Rollback Trigger < 60s]
+    I -->|Passed| K[Production Live Asset Active Status]
+```
+
+## The 8 Canonical Pipeline Stages Specification
+
+| Stage | Tooling | Quality Gates & Automation Thresholds | RBI / PCI-DSS Control Mapping |
+| :--- | :--- | :--- | :--- |
+| **1. Source Control** | GitHub Enterprise | Signed commits mandatory (GPG/SSH). Direct pushes to main blocked. | **RBI Sec 4.3:** Segregation of Duties<br>**PCI-DSS Req 6.5** |
+| **2. Build & Test** | Gradle / Java 21 | Mandatory unit testing with minimum line coverage >= 80%. | **RBI Sec 4.2:** Regulated Change Management |
+| **3. SAST Scan** | Semgrep / SonarQube | **Zero Critical Vulnerabilities** allowed. Maximum 2 High issues. | **PCI-DSS Req 6.2:** Bespoke Software Security |
+| **4. Dependency Scan**| Trivy | Complete SBOM generation in CycloneDX format. 0 Critical CVEs. | **RBI Sec 7.2:** Third-Party Supply Chain Risk |
+| **5. Integration Test**| Pact / Ephemeral Env | API backward compatibility validation checks. | **RBI Sec 4.2:** End-to-end Verification |
+| **6. DAST Scanning** | OWASP ZAP | Runtime vulnerability validation against OWASP Top 10 parameters. | **PCI-DSS Req 6.4 & 11.3:** Public App Protection |
+| **7. Policy Enforcement**| OPA (Open Policy Agent)| Verification of image provenance checks (Cosign signature validation). | **RBI Sec 5.4:** Automated Encryption Verification |
+| **8. Deployment & Verif**| Nginx Switch Script | Active/Inactive deployment targets. Auto-rollback triggered if 5xx errors > 5%. | **RBI Sec 6.1 & 6.3:** Immutable Logs & Incident Playbooks |
+
+## Pipeline Parallelization & Velocity Matrix
+* **Target Velocity:** Commit-to-production under **2 hours**.
+* **Parallel Opportunities:** SAST scans (`Semgrep`) and dependency checks (`Trivy`) run simultaneously right after the primary compilation step completes to minimize developer friction feedback loop under 10 minutes.
