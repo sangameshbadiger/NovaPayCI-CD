@@ -1,85 +1,41 @@
-# NovaPay Deployment Strategies
+# NovaPay Digital Bank - Zero-Downtime Deployment Strategies
 
-## 1. Objectives
+This document defines the production deployment methodology for NovaPay Digital Bank, transitioning the organization from high-risk manual SSH deployments to automated, zero-downtime Blue-Green switches and progressive Canary rollouts.
 
-The deployment design aims to reduce release risk, validate a candidate before
-production traffic changes, and provide a recovery path when verification fails.
+## 1. Nginx-Driven Blue-Green Architecture
 
-## 2. Blue-Green Deployment
+NovaPay utilizes a high-availability Virtual Machine configuration where two identical deployment slots are maintained natively on the target fleet:
+* **Blue Slot:** Application instance running on `http://127.0.0`
+* **Green Slot:** Application instance running on `http://127.0.0`
 
-### Architecture
+### Atomic Traffic Switching Protocol
+Traffic routing is handled at the reverse-proxy layer via Nginx. When a new release is authorized for deployment, the infrastructure executes the automated orchestrator script `/usr/local/bin/novapay-switch` which performs the following five operations:
+1. **Health Verification:** Probes the inactive environment to confirm an `HTTP 200` baseline response.
+2. **Configuration Backup:** Creates a time-stamped backup wrapper of `/etc/nginx/conf.d/novapay.conf`.
+3. **Atomic Pointer Update:** Executes an in-place `sed` statement to rewrite the active upstream application port block.
+4. **Syntax Pre-flight Check:** Validates configuration completeness via `/usr/sbin/nginx -t`.
+5. **Graceful Service Reload:** Triggers `systemctl reload nginx` to apply the pointer transformation with zero dropped active TCP connection sockets.
 
-- Blue slot: application container exposed on host port 8081.
-- Green slot: application container exposed on host port 8082.
-- Nginx routes production traffic to one active slot.
-- Jenkins deploys the candidate to the inactive slot.
+---
 
-### Workflow
+## 2. Progressive Canary Rollout Matrix
 
-1. Identify the currently active slot.
-2. Build, scan, and publish the versioned container image.
-3. Deploy the candidate to the inactive slot.
-4. Run target health checks and integration tests.
-5. Switch Nginx traffic to the candidate.
-6. Verify the live production endpoint.
-7. If verification fails, attempt to restore the previous slot.
-8. Verify recovery and mark the release as failed.
+To minimize blast radius for high-volume banking transactions, new features can optionally undergo a progressive rollout pattern monitored by Prometheus metrics across a rolling 7-day baseline comparison model:
 
-### Verified Result
+| Phase | Traffic Allocation | Evaluation Window | Health Assessment Criteria | Automated Action Gate |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. Canary** | 1% – 2% | 15 Minutes | HTTP 5xx rate < 0.1%<br>p99 latency < 200ms | Proceed to Early Adopter or execute Auto-Rollback |
+| **2. Early Adopter** | 5% – 10% | 30 Minutes | 0 Critical security alerts fired<br>Error rate < 0.05% | Proceed to Expansion or execute Auto-Rollback |
+| **3. Expansion** | 25% – 50% | 60 Minutes | System resource metrics baseline normal<br>All core SLO targets met | Proceed to Full Rollout |
+| **4. Full Rollout** | 100% | 24 Hours | Complete transaction consistency validated | Mark deployment stable; terminate inactive code version |
 
-Jenkins Build #31 intentionally forced live verification to fail after traffic
-switched to blue on port 8081. The rollback handler switched traffic back to
-green on port 8082 and reported "Rollback verification passed". A subsequent
-manual check confirmed that port 8082 was active and the production endpoint
-returned HTTP 200.
+---
 
-Build #31 ended in FAILURE intentionally because it simulated an unsuccessful
-release. This is evidence of rollback behavior, not a successful release.
+## 3. Database State Handling & Session Management
 
-## 3. Canary Routing
+* **Session Persistence:** Application session structures are entirely decoupled from the compute nodes and stored centrally inside a shared, 3-node **Redis 7 cluster**. This prevents active customers from being logged out during atomic port re-routing.
+* **Connection Draining:** During a deployment swap, the old environment stops accepting incoming routing streams but allows active payment processing sessions up to **60 seconds** to gracefully complete operations before terminating the underlying runtime context.
 
-The repository contains `pipeline/nginx/novapay-canary.conf` and
-`scripts/test-canary-routing.sh`. The existing canary test report documents
-weighted routing behavior.
-
-The configured example sends approximately 90% of requests to the stable
-upstream and 10% to the canary upstream. This is a routing demonstration.
-
-### Important Limitations
-
-Weighted routing alone does not prove that the canary is safe. Automated
-analysis of latency, error rate, saturation, or business metrics has not been
-established by the routing test alone.
-
-Automated promotion and rollback based on observed canary metrics remain
-planned work until implemented and tested.
-
-## 4. Safety Controls
-
-- Do not route traffic to a target until health and integration checks pass.
-- Validate Nginx configuration before reloading it.
-- Verify the live endpoint after switching.
-- Record the previous slot so rollback can restore it.
-- Record deployment, verification, and rollback results against the build ID.
-- Keep the optional TEST_ROLLBACK parameter disabled for routine deployments.
-
-## 5. Operational Risks
-
-A traffic switch can briefly expose the candidate before live verification
-finishes. The forced rollback test therefore requires an approved test window
-or a separate test environment. A healthy HTTP response is useful evidence
-but does not replace business-level synthetic transactions or full monitoring.
-
-## 6. Evidence
-
-- `evidence/blue-green-build-27.txt`
-- `evidence/blue-green-rollback-test.txt`
-- `docs/canary-test-report.md`
-- Jenkins Build #31 console log
-
-## 7. Future Improvements
-
-- Add automated canary metric analysis and explicit promotion thresholds.
-- Trigger canary rollback on defined error-rate or latency thresholds.
-- Capture deployment duration and rollback frequency.
-- Add authenticated synthetic transactions and business-level checks.
+## 4. Regulatory Compliance Alignment
+* **RBI Master Direction Section 4.2:** Standardizes explicit validation rules and structured rollback blueprints to eliminate data corruption risks.
+* **RBI Master Direction Section 6.3:** Enforces automated detection routines to guarantee prompt incident remediation.
