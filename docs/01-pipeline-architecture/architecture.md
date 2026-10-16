@@ -79,3 +79,21 @@ are available.
 
 Additional test results and screenshots should be recorded as capabilities
 are implemented and verified.
+
+## 9. Architecture Diagram
+
+```mermaid
+flowchart TD
+    A[Developer] --> B[GitHub Repository]
+    B --> C[Jenkins Pipeline]
+    C --> D[Build Docker Image]
+    D --> E[Trivy Security Scan]
+    E --> F[Amazon ECR]
+    F --> G[AWS EC2]
+    G --> H[Deploy to Inactive Slot]
+    H --> I[Health Check and Integration Tests]
+    I -->|Pass| J[Switch Nginx Traffic]
+    I -->|Fail| K[Stop Release]
+    J --> L[Verify Live Application]
+    L -->|Success| M[Deployment Complete]
+    L -->|Failure| N[Rollback]
