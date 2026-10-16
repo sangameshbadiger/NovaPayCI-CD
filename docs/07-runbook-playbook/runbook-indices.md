@@ -1,9 +1,14 @@
-# NovaPay Operational Runbook References
+# NovaPay Digital Bank - Operations Runbook & Incident Playbook Indices
 
-## 1. Deployment Execution Guidelines
-- Standard deployment procedures are tracked inside the main root folder: `runbooks/deployment-runbook.md`.
-- Pre-deployment check compliance is mapped under RBI Master Direction Section 4.2.
+This index links the primary production-grade operational playbooks utilized by the NovaPay Site Reliability Engineering (SRE) and Release Management teams.
 
-## 2. Emergency Incident Playbooks
-- Disaster recovery and rolling back broken slots are executed via: `runbooks/incident-playbook.md`.
-- Automated recovery escalation triggers track up to SEV-1 metrics.
+## Runbook Directories and Inventory
+
+* **[Production Deployment Runbook](../../runbooks/deployment-runbook.md)**
+  * Contains the mandatory pre-flight evidence checklists, environment health evaluation variables, step-by-step atomic traffic pointer switching procedures, and post-deployment validation loops.
+* **[Incident Response Playbook](../../runbooks/incident-playbook.md)**
+  * Details the severity classification metrics (SEV-1 through SEV-4), internal and external notification protocols, automated escalation pathways, and the step-by-step emergency timeline resolving code injection anomalies.
+
+## Regulatory Alignment Matrix
+* **RBI Master Direction Sec 6.3:** Mandates actionable operational runbooks to ensure swift business continuity and structured incident documentation patterns.
+* **PCI-DSS v4.0 Req 6.5:** Enforces well-documented environment promotion and change management execution workflows.
