@@ -1,113 +1,90 @@
-\# NovaPay Digital Bank – CI/CD Project
+# NovaPay Digital Bank — CI/CD Project
 
+## 1. Project Overview
 
+NovaPay is an educational digital banking web application used to demonstrate DevOps practices, CI/CD automation, containerization, security scanning, and cloud deployment.
 
-\## Project Overview
+The project uses Jenkins, Git, Docker, Semgrep, Trivy, Amazon ECR, AWS EC2, and Nginx. Kubernetes manifests are included, but a running Kubernetes deployment has not been verified.
 
-NovaPay is a sample digital banking web application used to demonstrate a Continuous Integration and Continuous Deployment (CI/CD) pipeline using Jenkins, Docker, Amazon ECR, and Amazon EC2.
+## 2. Project Objectives
 
+- Manage source code using Git and GitHub.
+- Automate pipeline tasks using Jenkins.
+- Build Docker container images.
+- Scan source code using Semgrep.
+- Scan container images using Trivy.
+- Document Amazon ECR image storage.
+- Demonstrate EC2 deployment and Nginx traffic switching.
+- Document architecture, testing, and rollback procedures.
 
+## 3. Technologies Used
 
-\## Technologies Used
+| Technology | Purpose |
+|---|---|
+| Git and GitHub | Source control |
+| Jenkins | CI/CD pipeline automation |
+| Docker | Container image builds |
+| Semgrep | Source-code security scanning |
+| Trivy | Container image scanning |
+| Amazon ECR | Container image registry |
+| AWS EC2 | Cloud server |
+| Nginx | Web traffic routing |
+| Linux and Bash | Server administration |
+| Kubernetes YAML | Example deployment and service manifests |
 
-\- AWS EC2 – Hosts the application and Jenkins deployment environment
+## 4. Current Jenkins Pipeline
 
-\- Jenkins – Automates the CI/CD pipeline
+The current Jenkinsfile contains these stages:
 
-\- Git and GitHub – Source code management and version control
+1. Checkout source code.
+2. Run Semgrep source-code scanning.
+3. Build the Docker image `novapay-app:${BUILD_NUMBER}`.
+4. Run a Trivy image scan for CRITICAL and HIGH severity findings.
+5. Run the `novapay-switch` script to select the configured deployment slot.
 
-\- Docker – Builds and runs the application container
+**Security note:** The Trivy command uses `--exit-code 0`, so findings from this scan alone will not fail the build.
 
-\- Amazon ECR – Stores Docker images
+The current Jenkinsfile does not itself show an Amazon ECR push or an application health-check stage. Verify those operations separately before describing them as automated pipeline stages.
 
-\- Linux and Shell scripting – Executes deployment and verification commands
+## 5. Architecture Diagram
 
-
-
-\## CI/CD Workflow
-
-1\. Developer pushes code to GitHub.
-
-2\. Jenkins checks out the source code.
-
-3\. Jenkins builds a Docker image from the `app` directory.
-
-4\. Jenkins tags the image with the build number and `latest`.
-
-5\. Jenkins authenticates with Amazon ECR using AWS CLI.
-
-6\. Jenkins pushes the Docker images to Amazon ECR.
-
-7\. Jenkins deploys the application container on EC2.
-
-8\. Jenkins runs a health check using `curl`.
-
-
-
-\## Docker Image
-
-\- ECR Repository: `novapay-app`
-
-\- AWS Region: `ap-south-1`
-
-\- Image tags: Build-number tags and `latest`
-
-
-
-\## Deployment
-
-The application container is deployed with port mapping `8081:80`.
-
-
-
-Application health check:
-
-
-
-```bash
-
-curl -f http://localhost:8081
-
+```mermaid
+flowchart TD
+    A[Developer] --> B[GitHub Repository]
+    B --> C[Jenkins Pipeline]
+    C --> D[Semgrep Scan]
+    D --> E[Build Docker Image]
+    E --> F[Trivy Image Scan]
+    F --> G[Traffic Switch Script]
+    G --> H[Nginx / EC2 Application]
 ```
 
+## 6. Blue-Green Deployment Concept
 
+The documented design uses active and inactive application slots. Verify the server configuration before relying on the ports or rollback procedure.
 
-\## Pipeline Stages
+```mermaid
+flowchart TD
+    A[Nginx] --> B[Active Application Slot]
+    C[New Release] --> D[Inactive Application Slot]
+    D --> E[Health Check]
+    E -->|Pass| F[Switch Nginx Traffic]
+    F --> B
+    E -->|Fail| G[Keep Existing Active Slot]
+```
 
-\- Checkout
+## 7. Application Verification
 
-\- Build Docker Image
+Check the HTTP response from the EC2 server:
 
-\- Login to Amazon ECR
+```bash
+curl -I http://127.0.0.1/
+```
 
-\- Push Image to Amazon ECR
+## 8. Kubernetes Manifests
 
-\- Deploy Application
+Kubernetes Deployment and Service manifests are included under `pipeline/kubernetes/`, but a running Kubernetes cluster has not been verified.
 
-\- Application Health Check
+## 9. Project Status
 
-
-
-\## Result
-
-The Jenkins pipeline completed successfully, the Docker image was pushed to Amazon ECR, and the application returned its HTML response during the health check.
-
-
-
-\## Learning Outcomes
-
-\- Created a Jenkins pipeline using a Jenkinsfile
-
-\- Built and tagged Docker images
-
-\- Integrated Jenkins with Amazon ECR
-
-\- Used an EC2 IAM role for AWS access
-
-\- Deployed a containerized web application
-
-\- Verified application availability using a health check
-
-Automatic Jenkins Poll SCM Trigger Test
-
-test: verify automatic Jenkins trigger
+This project documents CI/CD configuration, Docker image building, security scanning, and deployment concepts. Verify ECR publishing, health checks, deployment, and rollback in Jenkins logs and server checks before reporting them as successful.
