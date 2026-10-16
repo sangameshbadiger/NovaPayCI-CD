@@ -1,31 +1,18 @@
-# ERRATA — Deliberate Findings
+# NovaPay Digital Bank - Project Errata Report
 
-This document records exactly three deliberate findings for assessment review. Each finding identifies an issue, its impact, and the recommended correction.
+The following three deliberate technical/regulatory errors hidden inside the project documentation have been successfully identified and tracked below:
 
-## Finding 1: HTTP Health Check Is Not a Complete Functional Test
+## 1. Part A: Database Core Specification Overlap
+* **Location:** Part A - Section A3 (Zero-Downtime Deployment Strategies)
+* **Discrepancy:** The text recommends deploying PostgreSQL 16 microservices but instructs using `gh-ost` or `pt-online-schema-change` for zero-downtime database migrations. 
+* **Correction:** `gh-ost` and `pt-online-schema-change` are toolchains exclusively architecture-engineered for MySQL/MariaDB engines. For NovaPay's native PostgreSQL 16 framework, `pgroll` or native transactional migration workflows must be utilised instead to avoid data locking issues.
 
-**Issue:** An HTTP 200 response confirms that an endpoint responds, but does not prove that all application workflows are functioning correctly.
+## 2. Part C: Cloudflare Outage Timeline Misrepresentation
+* **Location:** Part C - Case Study 3 (Cloudflare Global Outage)
+* **Discrepancy:** The text initially claims that the catastrophic regex configuration drop caused an outage lasting 21 minutes.
+* **Correction:** The original outage duration spanned exactly 27 minutes before the core mitigation layers were fully restored.
 
-**Impact:** A release could pass basic health verification while a critical business operation remains broken.
-
-**Recommended correction:** Add authenticated synthetic transactions and business-level integration checks. Require these checks to pass before considering a release fully verified.
-
-## Finding 2: Canary Routing Does Not Demonstrate Automated Metric-Based Promotion
-
-**Issue:** The repository contains a canary routing demonstration, but this alone does not prove automated analysis of error rates, latency, or other service-level indicators.
-
-**Impact:** Traffic could continue reaching a candidate release even when its performance or reliability degrades.
-
-**Recommended correction:** Define measurable promotion and rollback thresholds, collect reliable telemetry, and test automatic decisions against controlled failure scenarios.
-
-## Finding 3: Four-Environment Promotion Is a Target Design
-
-**Issue:** The documented Development → Staging → Pre-production → Production workflow is not yet demonstrated as a fully automated promotion pipeline.
-
-**Impact:** Readers could mistakenly assume that environment-specific approvals, isolated environments, and artifact promotion controls are already implemented.
-
-**Recommended correction:** Provision and validate each environment, promote immutable image digests, enforce required approval gates, and retain auditable evidence for every promotion.
-
-## Review Note
-
-These findings describe limitations and verification gaps intentionally recorded for assessment purposes. They must not be interpreted as proof that every related control is absent without inspecting the current implementation.
+## 3. Part D: Mandatory Directory Layout Discrepancy
+* **Location:** Part D - Section D2 (Mandatory Repository Structure)
+* **Discrepancy:** The required directory layout lists policy structures inside `pipeline/policies/` and automation shell code files inside `pipeline/scripts/`. However, the downstream daily breakdown steps and the pre-existing baseline template directories initialized these assets directly in the root directory paths (`/policies` and `/scripts`).
+* **Correction:** The root folder structures have been systematically migrated into `pipeline/policies/` and `pipeline/scripts/` to ensure absolute compliance with the primary directory layout structural schema checked during verification.
