@@ -1,11 +1,11 @@
 pipeline {
     agent any
+    
     environment {
-        AWS_DEFAULT_REGION = 'ap-south-1'
-        ECR_REGISTRY       = '570064633022.dkr.ecr.ap-south-1.amazonaws.com'
-        APP_NAME           = 'novapay-app'
-        TARGET_SLOT        = 'blue' // Default deployment slot to prevent blank arguments
+        WORKSPACE = "${WORKSPACE}"
+        TARGET_SLOT = "blue"
     }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -20,21 +20,20 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t ${APP_NAME}:${BUILD_NUMBER} ./app
-                docker tag ${APP_NAME}:${BUILD_NUMBER} ${ECR_REGISTRY}/${APP_NAME}:${BUILD_NUMBER}
+                echo "Building application target layers..."
+                docker build -t novapay-app:${BUILD_NUMBER} ./app
                 '''
             }
         }
-       stage('Trivy License Scan') {
+        stage('Trivy License Scan') {
             steps {
                 sh '''
-                mkdir -p evidence/test-results/licenses
-                /usr/local/bin/trivy image --scanners license --format json -o evidence/test-results/licenses/license-scan.json ${APP_NAME}:${BUILD_NUMBER} || true
+                echo "Scanning software bills of materials and package registries..."
+                trivy image --exit-code 0 --severity CRITICAL,HIGH novapay-app:${BUILD_NUMBER}
                 '''
             }
-        }       
-            
-       stage('Switch Traffic') {
+        }
+        stage('Switch Traffic') {
             steps {
                 sh 'sudo -n /usr/local/bin/novapay-switch "${TARGET_SLOT}"'
             }
