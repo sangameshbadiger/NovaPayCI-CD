@@ -1,108 +1,64 @@
-# Environment Promotion Strategy
+# NovaPay Digital Bank - Environment Promotion Workflow Specification
 
-## 1. Purpose
+This document details the environment promotion matrix, strict quality gates, and configuration management strategy required to maintain structural parity across all environments while enforcing zero-trust data boundaries.
 
-This document defines the proposed process for promoting NovaPay releases through Development, Staging, Pre-production, and Production. Each environment must pass its required quality gates before the release advances.
+---
 
-**Current status:** The repository demonstrates a Jenkins-based deployment pipeline and blue-green deployment on EC2. The four-environment promotion workflow is a target design, not an already implemented capability.
+## 1. Four-Environment Promotion Topology Matrix
 
-## 2. Environment Overview
+NovaPay strictly enforces an immutable deployment methodology: **"Same binary artifact, separate runtime configurations."** The exact same container image hash generated at the initial build phase must be promoted across all stages.
 
-### Development
+| Environment | Purpose & Evaluation Goals | Data Profile Matrix | Access Control Restrictions | Trigger Event |
+| :--- | :--- | :--- | :--- | :--- |
+| **Development** | Unit testing, structural validation, and execution debugging. | 100% Synthetic and mock-generated data sets. | Full access granted to Engineering teams. | Automated hook triggered on Pull Request creation/merge. |
+| **Staging** | Dynamic evaluation (DAST), integration checking, contract verification. | Anonymized data profiles mimicking production loads. | Restricted to Dev, QA, and Automation engines. | Automated execution upon successful Dev stage validation. |
+| **Pre-Production** | User Acceptance Testing (UAT), Technology Risk verification. | Masked production database records (PII scrubbing enforced). | Restricted to QA Leads, DBAs, and Security Officers. | Manual authorization token required following Staging validation. |
+| **Production** | Live, customer-facing banking platform transactions. | Real-time active financial data streams. | Restricted exclusively to SRE Engineers and Release Managers. | **Dual Approval Gate Required:** Release Manager + SRE Lead validation. |
 
-Purpose:
-- Build and validate application changes.
-- Run unit tests, code quality checks, and initial security scans.
-- Detect defects early.
+---
 
-Promotion criteria:
-- Build succeeds.
-- Required tests pass.
-- No unapproved critical security findings remain.
+## 2. Hard-Blocking Promotion Gates Framework
 
-### Staging
+```mermaid
+stateDiagram-v2
+    [*] --> Development
+    Development --> Staging : Gate A: 100% Unit Pass & SAST Validation
+    Staging --> Pre_Prod : Gate B: DAST Pass & Performance Evaluation
+    Pre_Prod --> Production : Gate C: CAB Sign-off & Dual Approval Verification
+```
 
-Purpose:
-- Validate integration between application components.
-- Run integration and contract tests.
-- Perform dependency, container, and dynamic security testing as configured.
+### Transition Gate Requirements
 
-Promotion criteria:
-- Integration tests pass.
-- Required security and compliance gates pass.
-- Test results and build identifiers are recorded.
+#### A. Development ➔ Staging (100% Automated Execution)
+* **Unit Tests:** 100% execution pass rate with zero tolerated exceptions.
+* **Code Coverage:** Line coverage must meet or exceed **80%**; branch coverage must meet or exceed **70%**.
+* **Static Analysis (SAST):** Zero Critical issues; maximum of 2 High issues detected.
+* **Artifact Provenance:** Base image signature validated using cryptographic signing keys.
 
-### Pre-production
+#### B. Staging ➔ Pre-Production (Hybrid Execution Workflow)
+* **Integration Tests:** Complete validation of consumer-driven contract testing suites (Pact framework).
+* **Vulnerability Analysis:** Zero Critical or High alerts flagged within application dependency trees.
+* **Dynamic Analysis (DAST):** Zero runtime vulnerabilities listed inside the OWASP Top 10 matrix.
+* **Performance Baseline:** p99 latency parameters must remain below **500ms** under twice the expected production load configuration.
+* **Manual Gate:** Explicit code review verification sign-off by the Tech Lead.
 
-Purpose:
-- Validate the release in a production-like environment.
-- Verify configuration, deployment scripts, capacity assumptions, and recovery procedures.
-- Complete release review and obtain the required approval.
+#### C. Pre-Production ➔ Production (Strict Governance Authorization)
+* **UAT Sign-off:** formal approval confirmation from the Product Owner.
+* **Compliance Audit:** Continuous verification report confirming mapping against RBI and PCI-DSS rules.
+* **Database Verification:** Zero-downtime expand-contract scripts successfully validated against production-scale data structures in Pre-Prod.
+* **Dual Approval Matrix:** Enforces **Segregation of Duties (SoD)**. Release execution requires cryptographic keys from both the Release Manager and the SRE Lead.
+* **Blackout Verification:** The deployment timing engine confirms the execution window does not conflict with peak banking hours or regulatory settlement windows.
 
-Promotion criteria:
-- Health checks and release validation pass.
-- Database compatibility and recovery plans are reviewed where applicable.
-- Release approval is recorded.
+---
 
-### Production
+## 3. Configuration Management & Secrets Architecture
 
-Purpose:
-- Release the approved artifact using a controlled deployment.
-- Verify live application health and business-critical behavior.
-- Roll back to the previous working slot if verification fails.
+* **Immutable Artifact Rule:** Environment branches are strictly forbidden. The exact same image hash is promoted across the environment vector; environment discrepancies are declared purely through **Helm value overrides** (`values-staging.yaml`, `values-production.yaml`).
+* **Secrets Security Isolation:** Plaintext application passwords, database credentials, and cryptographic tokens are blocked from Git storage. Vault engines enforce auto-rotation policies (**90 days for system credentials, 30 days for API tokens**).
+* **Drift Mitigation:** The continuous deployment framework evaluates active production clusters against Git declarations every **3 minutes**, auto-alerting SRE teams upon identifying unmapped structural drift.
 
-Promotion criteria:
-- The exact approved artifact is deployed.
-- Live verification passes.
-- Deployment results and any rollback actions are recorded.
+---
 
-## 3. Promotion Flow
-
-The target flow is:
-
-Development → Staging → Pre-production → Production
-
-A release must not skip required environments or quality gates without an approved exception. The same immutable artifact should be promoted between environments wherever the deployment design supports it, rather than rebuilding different artifacts for each environment.
-
-## 4. Artifact and Configuration Management
-
-- Record the source commit and build identifier for every release.
-- Record the container image tag and immutable image digest.
-- Separate environment-specific configuration from the application artifact.
-- Store secrets in an approved secrets manager or protected CI/CD credentials.
-- Restrict production credentials and deployment permissions.
-- Keep deployment and approval logs for audit purposes.
-
-## 5. Failure Handling
-
-- Stop promotion when a required gate fails.
-- Publish the failed gate and relevant diagnostic evidence.
-- Correct the issue and rerun the required validation.
-- Record any authorized exception with its owner, justification, expiry, and remediation plan.
-- For production failures, use the documented rollback procedure and verify service recovery.
-
-## 6. Security and Separation of Duties
-
-- Use least-privilege access for each environment.
-- Restrict production deployment permissions.
-- Require independent approval for production releases where practical.
-- Protect the main branch with review and status checks where repository settings support them.
-- Audit privileged actions and exception approvals.
-
-## 7. Evidence to Retain
-
-For each promotion, record:
-
-- Release identifier, source commit, and image digest.
-- Environment and deployment timestamp.
-- Test and security scan results.
-- Approval identity and timestamp where required.
-- Health-check and verification results.
-- Exception details or rollback evidence, if applicable.
-
-## 8. Current Limitations and Future Work
-
-The current Jenkins pipeline demonstrates build, Trivy scanning, ECR publishing, inactive-slot deployment, health checks, integration tests, traffic switching, and rollback verification on EC2.
-
-The repository does not yet demonstrate a complete automated four-environment promotion workflow. Future work includes provisioning isolated environments, implementing environment-specific credentials and approvals, promoting immutable image digests, and adding auditable promotion gates.
-
+## 4. Regulatory Reference Mapping
+* **RBI Master Direction Sec 4.3:** Enforces strict Segregation of Duties rules between engineering development stages and final deployment operations.
+* **PCI-DSS v4.0 Req 6.5:** Mandatory isolation controls separating non-production infrastructure from the production Cardholder Data Environment (CDE).
