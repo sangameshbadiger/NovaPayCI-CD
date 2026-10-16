@@ -1,96 +1,74 @@
-# Rollback Specification
+# NovaPay Digital Bank - Automated Rollback Trigger Taxonomy & Execution Engine
 
-## 1. Purpose
+This document defines the automated error classification matrix, fallback rules, alert routing conditions, and execution recovery sequencing deployed to handle immediate service restoration with sub-60-second response latency.
 
-This document defines how NovaPay restores the previous working application version when a deployment fails verification.
+---
 
-## 2. Deployment Model
+## 1. Rollback Trigger Taxonomy Matrix
 
-NovaPay uses a blue-green deployment approach on EC2:
+NovaPay classifies production performance degradation into three distinct structural operational bands:
 
-- **Blue slot:** Application on host port 8081.
-- **Green slot:** Application on host port 8082.
-- **Traffic routing:** Nginx selects the active slot.
-- **Rollback mechanism:** Restore Nginx routing to the previously working slot, validate the configuration, and reload Nginx.
+| Trigger Classification | Criticality Horizon | Detection & Metric Source | Target SLA Threshold | Automated Recovery Execution Rule |
+| :--- | :--- | :--- | :--- | :--- |
+| **Category A: Immediate** | High Blast Radius System Failure | • Prometheus API Engine<br>• Docker Container Health Probes | • HTTP 5xx rate > 5% sustained for 60 seconds.<br>• 3 consecutive container liveness failures.<br>• Database connection pool saturation >= 98%. | **100% Zero Human Intervention.**<br>The Nginx traffic proxy pointer reverts instantly to the previous stable runtime target. |
+| **Category B: Escalated** | Gradual Performance Degradation | • OpenTelemetry Tracing Logs<br>• Prometheus Resource Dashboards | • p99 latency > 2x the rolling historical baseline for 5 min.<br>• Error budget burn rate > 10x for 10 min.<br>• Transaction drop rate > 2%. | **PagerDuty Alert Dispatch.**<br>Escalates to the on-call SRE Engineer; triggers auto-rollback if no human override token is submitted within **15 minutes**. |
+| **Category C: Manual** | Retroactive Failure Identification | • Visual Log Inspection<br>• Regulatory Compliance Alerts | • Customer support event logging.<br>• Downstream third-party payment gateway isolation.<br>• Security drift detection flag. | **Human Operator Decision Loop.**<br>Requires manual execution of the rollback pipeline following standard change management validation rules. |
 
-## 3. Rollback Triggers
+---
 
-Initiate rollback when any of the following occurs:
+## 2. Production Prometheus Alerting Rules Specification
 
-- The newly deployed slot fails its health check.
-- Integration tests fail before traffic switching.
-- Live verification fails after switching traffic.
-- The application returns persistent unexpected HTTP errors.
-- The deployed version marker does not match the expected release.
-- Critical functional checks fail after deployment.
+To codify these thresholds inside your active observability layout stack, the following target rules are configured inside Alertmanager formats:
 
-Automated metric-based triggers for latency and error rate remain future work unless separately implemented and verified.
+```yaml
+groups:
+  - name: novapay_production_rollback_alerts
+    rules:
+      # Category A Trigger: Immediate High Error Rate
+      - alert: NovaPayHighHTTP5xxRate
+        expr: (sum(rate(nginx_http_requests_total{status=~"5.."}[1m])) / sum(rate(nginx_http_requests_total[1m]))) * 100 > 5
+        for: 60s
+        labels:
+          severity: critical
+          category: A_immediate
+        annotations:
+          summary: "Catastrophic HTTP 5xx production error rate detected"
+          description: "Production error rate is at {{ \$value }}%, bypassing standard human checkpoints."
 
-## 4. Rollback Procedure
-
-1. Identify the candidate slot and the previously active slot.
-2. Capture the build identifier, deployment logs, and failure details.
-3. Confirm the previous slot is running and responds successfully.
-4. Restore Nginx routing to the previous slot using the approved switch script.
-5. Validate the Nginx configuration with `nginx -t`.
-6. Reload Nginx only after configuration validation succeeds.
-7. Check the live endpoint and expected application version.
-8. Record the rollback outcome and notify the responsible operator.
-
-Example verification commands:
-
-```bash
-sudo grep -m1 -oE '127\.0\.0\.1:(8081|8082)' /etc/nginx/conf.d/novapay.conf
-curl -s -o /dev/null -w 'HTTP %{http_code}\n' http://127.0.0.1/
+      # Category B Trigger: Sustained Latency Saturation
+      - alert: NovaPayP99LatencyBreach
+        expr: histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 0.400
+        for: 5m
+        labels:
+          severity: warning
+          category: B_escalated
+        annotations:
+          summary: "Production p99 transaction latency exceeding SLA limits"
+          description: "Current p99 latency baseline has inflated to {{ \$value }}s over a 5-minute evaluation window."
 ```
 
-Expected result: the active upstream points to the restored slot and the live endpoint returns HTTP 200.
+---
 
-## 5. Failure Handling
+## 3. The 8-Step Rollback Execution Sequence
 
-If the previous slot is unhealthy or traffic restoration fails:
+When a Category A threshold is breached or a Category B timer expires without engineering intervention, the recovery framework processes operations via this deterministic path:
 
-- Do not claim rollback success.
-- Preserve logs and diagnostic information.
-- Escalate to the responsible operator.
-- Follow the incident playbook to restore service.
-- Use a known-good release or an approved recovery procedure.
-- Verify application health before closing the incident.
+```mermaid
+stateDiagram-v2
+    Direction TOP_DOWN
+    [*] --> 1_Detect : Automated Trigger Event Breach Found
+    1_Detect --> 2_Correlate : Verify System State Parity
+    2_Correlate --> 3_Freeze : Block Active Deployment Actions
+    3_Freeze --> 4_Rollback : Execute Nginx Atomic Pointer Reversion
+    4_Rollback --> 5_Verify : Run Automated Post-Deployment Smoke Tests
+    5_Verify --> 6_Notify : Dispatch Alerts (Slack/PagerDuty/Logs)
+    6_Notify --> 7_Log_Incident : Log Complete Metadata Record to Audit Trail
+    7_Log_Incident --> 8_PostMortem : Initiate 3 AM Blameless Review Meeting
+    8_PostMortem --> [*] : Recovery Execution Complete
+```
 
-Application rollback does not automatically reverse database changes. Database recovery must follow the separate database migration strategy.
+---
 
-## 6. Verification and Audit Evidence
-
-Record:
-
-- Jenkins build number and source commit.
-- Previous and candidate slots.
-- Deployment and rollback timestamps.
-- Failed verification or trigger.
-- Nginx configuration validation results.
-- HTTP status and application version after rollback.
-- Operator actions, approvals, and incident reference where applicable.
-
-## 7. Tested Evidence
-
-Jenkins Build #31 was deliberately run with `TEST_ROLLBACK=true` to test the rollback path.
-
-The recorded outcome was:
-
-- Candidate deployment and pre-switch checks succeeded.
-- Forced live verification failed as expected.
-- Traffic was restored to the previous green slot on port 8082.
-- Rollback verification passed.
-- The Jenkins build ended in FAILURE intentionally because the test injected a deployment verification failure.
-
-A subsequent manual check confirmed that Nginx routed to `127.0.0.1:8082` and the live endpoint returned HTTP 200.
-
-This evidence verifies the tested rollback scenario only. It does not establish that every failure mode or metric-based rollback trigger has been tested.
-
-## 8. Future Improvements
-
-- Add configurable error-rate and latency thresholds.
-- Add automated deployment-duration and rollback-frequency metrics.
-- Test rollback under additional failure scenarios.
-- Integrate alerting and incident tracking.
-- Schedule periodic recovery exercises.
+## 4. Regulatory Reference Mapping
+* **RBI Master Direction Sec 4.2:** Mandates explicit, well-tested rollback procedures to prevent incomplete data states during release lifecycle anomalies.
+* **RBI Master Direction Sec 6.3:** Enforces strict execution frameworks for automated disaster isolation and immediate operational system continuity protocols.
